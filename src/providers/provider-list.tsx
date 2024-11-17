@@ -2,7 +2,7 @@ import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
 
 import { QueryProvider } from '~/providers/query-client-provider'
-import { StrictPropsWithChildren } from '~/utils/props.type'
+import { StrictPropsWithChildren } from '~/types/props.type'
 
 export const ProviderList = ({ children }: StrictPropsWithChildren) => {
   return (

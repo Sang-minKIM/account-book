@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 
+import { PaymentList } from '~/pages/payment-list'
 import { ROUTE } from './route.model'
 
 export const router = createBrowserRouter([
@@ -8,7 +9,7 @@ export const router = createBrowserRouter([
     element: <div>home</div>,
   },
   {
-    path: ROUTE.station(':stationId'),
-    element: <div>station</div>,
+    path: ROUTE.payment.list,
+    element: <PaymentList />,
   },
 ])

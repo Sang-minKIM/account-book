@@ -1,0 +1,454 @@
+{
+  "payments": [
+    {
+      "id": "1",
+      "type": "expense",
+      "amount": 15000,
+      "from": "스타벅스",
+      "category": "카페/간식",
+      "date": "2024-03-15T14:30:00",
+      "memo": "아메리카노 2잔"
+    },
+    {
+      "id": "2",
+      "type": "income",
+      "amount": 3000000,
+      "to": "(주)회사",
+      "category": "급여",
+      "date": "2024-03-15T09:00:00",
+      "memo": "3월 급여"
+    },
+    {
+      "id": "3",
+      "type": "expense",
+      "amount": 35000,
+      "from": "이마트",
+      "category": "편의점/마트/잡화",
+      "date": "2024-03-15T18:20:00",
+      "memo": "장보기"
+    },
+    {
+      "id": "4",
+      "type": "expense",
+      "amount": 12000,
+      "from": "CU",
+      "category": "편의점/마트/잡화",
+      "date": "2024-03-14T20:15:00",
+      "memo": "생필품"
+    },
+    {
+      "id": "5",
+      "type": "expense",
+      "amount": 45000,
+      "from": "김밥천국",
+      "category": "식사",
+      "date": "2024-03-14T12:30:00",
+      "memo": "팀 점심식사"
+    },
+    {
+      "id": "6",
+      "type": "expense",
+      "amount": 8500,
+      "from": "투썸플레이스",
+      "category": "카페/간식",
+      "date": "2024-03-14T15:45:00",
+      "memo": "아이스라떼"
+    },
+    {
+      "id": "7",
+      "type": "expense",
+      "amount": 55000,
+      "from": "CGV",
+      "category": "문화/여가",
+      "date": "2024-03-13T19:00:00",
+      "memo": "영화 관람"
+    },
+    {
+      "id": "8",
+      "type": "expense",
+      "amount": 150000,
+      "from": "유니클로",
+      "category": "쇼핑",
+      "date": "2024-03-13T14:20:00",
+      "memo": "봄옷 구매"
+    },
+    {
+      "id": "9",
+      "type": "income",
+      "amount": 400000,
+      "to": "프리랜서 수입",
+      "category": "부수입",
+      "date": "2024-03-13T10:00:00",
+      "memo": "디자인 작업"
+    },
+    {
+      "id": "10",
+      "type": "expense",
+      "amount": 32000,
+      "from": "올리브영",
+      "category": "쇼핑",
+      "date": "2024-03-12T16:30:00",
+      "memo": "화장품"
+    },
+    {
+      "id": "11",
+      "type": "expense",
+      "amount": 9000,
+      "from": "GS25",
+      "category": "편의점/마트/잡화",
+      "date": "2024-03-12T22:15:00",
+      "memo": "야식"
+    },
+    {
+      "id": "12",
+      "type": "expense",
+      "amount": 60000,
+      "from": "스시오",
+      "category": "식사",
+      "date": "2024-03-11T19:30:00",
+      "memo": "저녁식사"
+    },
+    {
+      "id": "13",
+      "type": "expense",
+      "amount": 450000,
+      "from": "워커힐",
+      "category": "숙박",
+      "date": "2024-03-11T15:00:00",
+      "memo": "호캉스"
+    },
+    {
+      "id": "14",
+      "type": "expense",
+      "amount": 6500,
+      "from": "이디야",
+      "category": "카페/간식",
+      "date": "2024-03-10T11:20:00",
+      "memo": "카페라떼"
+    },
+    {
+      "id": "15",
+      "type": "income",
+      "amount": 500000,
+      "to": "투자수익",
+      "category": "투자",
+      "date": "2024-03-10T09:00:00",
+      "memo": "주식 배당금"
+    },
+    {
+      "id": "16",
+      "type": "expense",
+      "amount": 28000,
+      "from": "롯데마트",
+      "category": "편의점/마트/잡화",
+      "date": "2024-03-09T16:45:00",
+      "memo": "생필품"
+    },
+    {
+      "id": "17",
+      "type": "expense",
+      "amount": 13000,
+      "from": "메가커피",
+      "category": "카페/간식",
+      "date": "2024-03-09T14:30:00",
+      "memo": "커피와 케이크"
+    },
+    {
+      "id": "18",
+      "type": "expense",
+      "amount": 85000,
+      "from": "아웃백",
+      "category": "식사",
+      "date": "2024-03-08T18:30:00",
+      "memo": "가족 외식"
+    },
+    {
+      "id": "19",
+      "type": "expense",
+      "amount": 42000,
+      "from": "교보문고",
+      "category": "문화/여가",
+      "date": "2024-03-08T14:15:00",
+      "memo": "도서 구매"
+    },
+    {
+      "id": "20",
+      "type": "expense",
+      "amount": 7500,
+      "from": "세븐일레븐",
+      "category": "편의점/마트/잡화",
+      "date": "2024-03-07T22:30:00",
+      "memo": "간식"
+    },
+    {
+      "id": "21",
+      "type": "expense",
+      "amount": 180000,
+      "from": "나이키",
+      "category": "쇼핑",
+      "date": "2024-03-07T15:20:00",
+      "memo": "운동화"
+    },
+    {
+      "id": "22",
+      "type": "income",
+      "amount": 1200000,
+      "to": "부동산",
+      "category": "임대수입",
+      "date": "2024-03-07T10:00:00",
+      "memo": "월세"
+    },
+    {
+      "id": "23",
+      "type": "expense",
+      "amount": 15000,
+      "from": "컴포즈커피",
+      "category": "카페/간식",
+      "date": "2024-03-06T16:30:00",
+      "memo": "커피 3잔"
+    },
+    {
+      "id": "24",
+      "type": "expense",
+      "amount": 65000,
+      "from": "코스트코",
+      "category": "편의점/마트/잡화",
+      "date": "2024-03-06T13:45:00",
+      "memo": "대량 장보기"
+    },
+    {
+      "id": "25",
+      "type": "expense",
+      "amount": 22000,
+      "from": "버거킹",
+      "category": "식사",
+      "date": "2024-03-05T12:30:00",
+      "memo": "점심"
+    },
+    {
+      "id": "26",
+      "type": "expense",
+      "amount": 320000,
+      "from": "삼성전자",
+      "category": "전자기기",
+      "date": "2024-03-05T11:20:00",
+      "memo": "이어폰"
+    },
+    {
+      "id": "27",
+      "type": "expense",
+      "amount": 8000,
+      "from": "파리바게뜨",
+      "category": "카페/간식",
+      "date": "2024-03-04T15:40:00",
+      "memo": "빵"
+    },
+    {
+      "id": "28",
+      "type": "income",
+      "amount": 300000,
+      "to": "유튜브",
+      "category": "부수입",
+      "date": "2024-03-04T09:00:00",
+      "memo": "광고수익"
+    },
+    {
+      "id": "29",
+      "type": "expense",
+      "amount": 45000,
+      "from": "CGV",
+      "category": "문화/여가",
+      "date": "2024-03-03T19:15:00",
+      "memo": "영화"
+    },
+    {
+      "id": "30",
+      "type": "expense",
+      "amount": 95000,
+      "from": "자라",
+      "category": "쇼핑",
+      "date": "2024-03-03T14:30:00",
+      "memo": "옷"
+    },
+    {
+      "id": "31",
+      "type": "expense",
+      "amount": 35000,
+      "from": "bhc",
+      "category": "식사",
+      "date": "2024-03-02T18:45:00",
+      "memo": "치킨"
+    },
+    {
+      "id": "32",
+      "type": "expense",
+      "amount": 12000,
+      "from": "GS25",
+      "category": "편의점/마트/잡화",
+      "date": "2024-03-02T21:30:00",
+      "memo": "생필품"
+    },
+    {
+      "id": "33",
+      "type": "income",
+      "amount": 2800000,
+      "to": "(주)회사",
+      "category": "급여",
+      "date": "2024-03-01T09:00:00",
+      "memo": "2월 급여"
+    },
+    {
+      "id": "34",
+      "type": "expense",
+      "amount": 55000,
+      "from": "신세계",
+      "category": "쇼핑",
+      "date": "2024-02-29T16:20:00",
+      "memo": "선물"
+    },
+    {
+      "id": "35",
+      "type": "expense",
+      "amount": 9500,
+      "from": "스타벅스",
+      "category": "카페/간식",
+      "date": "2024-02-29T11:15:00",
+      "memo": "프라푸치노"
+    },
+    {
+      "id": "36",
+      "type": "expense",
+      "amount": 68000,
+      "from": "롯데시네마",
+      "category": "문화/여가",
+      "date": "2024-02-28T19:30:00",
+      "memo": "영화 2장"
+    },
+    {
+      "id": "37",
+      "type": "expense",
+      "amount": 42000,
+      "from": "올리브영",
+      "category": "쇼핑",
+      "date": "2024-02-28T15:45:00",
+      "memo": "화장품"
+    },
+    {
+      "id": "38",
+      "type": "income",
+      "amount": 450000,
+      "to": "프리랜서",
+      "category": "부수입",
+      "date": "2024-02-28T10:00:00",
+      "memo": "번역 작업"
+    },
+    {
+      "id": "39",
+      "type": "expense",
+      "amount": 25000,
+      "from": "이마트",
+      "category": "편의점/마트/잡화",
+      "date": "2024-02-27T17:20:00",
+      "memo": "장보기"
+    },
+    {
+      "id": "40",
+      "type": "expense",
+      "amount": 7000,
+      "from": "이디야",
+      "category": "카페/간식",
+      "date": "2024-02-27T14:30:00",
+      "memo": "아메리카노"
+    },
+    {
+      "id": "41",
+      "type": "expense",
+      "amount": 48000,
+      "from": "본죽",
+      "category": "식사",
+      "date": "2024-02-26T12:15:00",
+      "memo": "점심식사"
+    },
+    {
+      "id": "42",
+      "type": "expense",
+      "amount": 150000,
+      "from": "애플",
+      "category": "전자기기",
+      "date": "2024-02-26T10:30:00",
+      "memo": "충전기"
+    },
+    {
+      "id": "43",
+      "type": "income",
+      "amount": 600000,
+      "to": "투자수익",
+      "category": "투자",
+      "date": "2024-02-26T09:00:00",
+      "memo": "주식매도"
+    },
+    {
+      "id": "44",
+      "type": "expense",
+      "amount": 32000,
+      "from": "CU",
+      "category": "편의점/마트/잡화",
+      "date": "2024-02-25T20:45:00",
+      "memo": "생필품"
+    },
+    {
+      "id": "45",
+      "type": "expense",
+      "amount": 13500,
+      "from": "투썸플레이스",
+      "category": "카페/간식",
+      "date": "2024-02-25T15:30:00",
+      "memo": "디저트"
+    },
+    {
+      "id": "46",
+      "type": "expense",
+      "amount": 75000,
+      "from": "서브웨이",
+      "category": "식사",
+      "date": "2024-02-24T12:30:00",
+      "memo": "팀 점심"
+    },
+    {
+      "id": "47",
+      "type": "expense",
+      "amount": 220000,
+      "from": "나이키",
+      "category": "쇼핑",
+      "date": "2024-02-24T14:20:00",
+      "memo": "운동복"
+    },
+    {
+      "id": "48",
+      "type": "income",
+      "amount": 1500000,
+      "to": "부동산",
+      "category": "임대수입",
+      "date": "2024-02-24T09:00:00",
+      "memo": "상가 임대료"
+    },
+    {
+      "id": "49",
+      "type": "expense",
+      "amount": 28000,
+      "from": "롯데마트",
+      "category": "편의점/마트/잡화",
+      "date": "2024-02-23T17:15:00",
+      "memo": "장보기"
+    },
+    {
+      "id": "50",
+      "type": "expense",
+      "amount": 8500,
+      "from": "스타벅스",
+      "category": "카페/간식",
+      "date": "2024-02-23T11:30:00",
+      "memo": "아메리카노"
+    }
+  ]
+}
