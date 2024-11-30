@@ -1,19 +1,19 @@
-import { useMemo } from 'react'
-import { usePaymentsListQuery } from '~/queries/payment/payment-list.api'
+import { useState } from 'react'
+
+import { usePaymentsListQuery } from '~/queries/payment'
+import { SortOrder } from '~/queries/payment/payment-list.types'
 
 export const usePaymentListViewModel = () => {
-  const { data, isLoading } = usePaymentsListQuery()
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc')
+  const { data } = usePaymentsListQuery(sortOrder)
 
-  const sortedPaymentList = useMemo(() => {
-    if (!data) return []
-
-    return [...data].sort((a, b) => {
-      return b.date.localeCompare(a.date)
-    })
-  }, [data])
+  const toggleSort = () => {
+    setSortOrder((prev) => (prev === 'desc' ? 'asc' : 'desc'))
+  }
 
   return {
-    paymentList: sortedPaymentList,
-    isLoading,
+    paymentList: data || [],
+    toggleSort,
+    sortOrder,
   }
 }

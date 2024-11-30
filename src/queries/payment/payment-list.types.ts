@@ -32,3 +32,5 @@ export interface Payment {
   category: Category
   date: string
 }
+
+export type SortOrder = 'asc' | 'desc'
