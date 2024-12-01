@@ -8,7 +8,7 @@ export const PaymentForm = () => {
   const { handleSubmit, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional } = usePaymentFormViewModel()
   return (
     <form onSubmit={handleSubmit}>
-      <Flex gap="4" direction="column">
+      <Flex gap="7" direction="column" justify="between">
         <RequiredInfoFields requiredInfo={requiredInfo} dispatchRequired={dispatchRequired} />
         <OptionalInfoFields optionalInfo={optionalInfo} dispatchOptional={dispatchOptional} />
         <Button type="submit" size={ELEMENT_SIZE}>

@@ -1,22 +1,20 @@
-import { Container, Flex, IconButton, Table } from '@radix-ui/themes'
+import { Container, Flex, Table } from '@radix-ui/themes'
 import { Pencil1Icon } from '@radix-ui/react-icons'
-import { Link } from 'react-router-dom'
 
 import { PaymentListItem } from './components/payment-list-item'
 import { usePaymentListViewModel } from './hooks/use-payment-list-view-model'
 import { ROUTE } from '~/router'
+import { IconLink } from '~/components'
 
 export const PaymentList = () => {
   const { paymentList, toggleSort, sortOrder } = usePaymentListViewModel()
 
   return (
-    <Container height="100dvh">
+    <Container>
       <Flex height="50px" align="center" justify="end" p="2">
-        <IconButton variant="ghost" size="4" asChild>
-          <Link to={ROUTE.payment.create}>
-            <Pencil1Icon width="22" height="22" />
-          </Link>
-        </IconButton>
+        <IconLink to={ROUTE.payment.create}>
+          <Pencil1Icon width="22" height="22" />
+        </IconLink>
       </Flex>
       <Table.Root>
         <Table.Header>

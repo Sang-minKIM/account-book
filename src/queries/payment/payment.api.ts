@@ -11,6 +11,12 @@ export const usePaymentsListQuery = (sortOrder: SortOrder): UseSuspenseQueryResu
     queryFn: () => request(PAYMENTS_ENDPOINT.order({ order: sortOrder })),
   })
 
+export const usePaymentDetailQuery = (paymentId: string): UseSuspenseQueryResult<Payment[]> =>
+  useSuspenseQuery<Payment[]>({
+    queryKey: PAYMENTS_KEY.detail(paymentId),
+    queryFn: () => request(PAYMENTS_ENDPOINT.detail(paymentId)),
+  })
+
 export const usePaymentCreateMutation = () => {
   return useMutation({
     mutationFn: (data: PaymentCreateRequest) =>

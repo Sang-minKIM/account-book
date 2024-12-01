@@ -1,18 +1,24 @@
-import { CategoryResponse } from '../category'
 import { z } from 'zod'
+import { CategoryResponse } from '../category'
 
-export type PaymentType = 'income' | 'expense'
-
-export interface Payment {
-  id: string
-  type: PaymentType
-  amount: number
+type ExpensePayment = {
+  type: 'expense'
   from?: string
+  to: string
+}
+
+type IncomePayment = {
+  type: 'income'
+  from: string
   to?: string
-  memo?: string
+}
+export type Payment = {
+  id: string
+  amount: number
+  memo: string
   category: CategoryResponse
   date: string
-}
+} & (ExpensePayment | IncomePayment)
 
 const requiredInfoSchema = z.object({
   type: z.enum(['income', 'expense']),
