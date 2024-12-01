@@ -1,4 +1,4 @@
-import { SortOrder } from './payment-list.types'
+import { SortOrder } from '~/types/query.type'
 
 export const PAYMENTS_LIST_ENDPOINT = {
   default: '/payments',
