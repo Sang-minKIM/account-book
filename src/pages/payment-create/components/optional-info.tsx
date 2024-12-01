@@ -21,7 +21,7 @@ export const OptionalInfo = ({ optionalInfo, dispatchOptional }: OptionalInfoPro
     </Select.Item>
   ))
   return (
-    <Flex direction="column" gap="2" width="50%">
+    <Flex direction="column" gap="2">
       <Select.Root
         defaultValue={defaultCategory}
         onValueChange={(value) => dispatchOptional({ type: 'SET_CATEGORY', payload: value })}
