@@ -1,7 +1,12 @@
 import { useReducer } from 'react'
-import { RequiredInfo, OptionalInfo, RequiredInfoAction, OptionalInfoAction } from '../components/payment-form.type'
+import { RequiredInfoAction, OptionalInfoAction } from '../components/payment-form.type'
+import { RequiredInfo, OptionalInfo, paymentFormSchema } from '~/queries/payment/payment.type'
+import { usePaymentCreateMutation } from '~/queries/payment'
+import { useNavigate } from 'react-router-dom'
+import { ROUTE } from '~/router'
 
 export const usePaymentFormViewModel = () => {
+  const navigate = useNavigate()
   const [requiredInfo, dispatchRequired] = useReducer(requiredInfoReducer, {
     type: 'expense',
     amount: 0,
@@ -10,12 +15,29 @@ export const usePaymentFormViewModel = () => {
   })
 
   const [optionalInfo, dispatchOptional] = useReducer(optionalInfoReducer, {
-    category: '',
+    category: 1,
     memo: '',
   })
 
-  const handleSubmit = () => {
-    console.log('submit')
+  const { mutateAsync: createPayment } = usePaymentCreateMutation()
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    paymentFormSchema.parse({
+      ...requiredInfo,
+      ...optionalInfo,
+    })
+
+    const createPaymentResult = await createPayment({
+      type: requiredInfo.type,
+      amount: requiredInfo.amount,
+      ...(requiredInfo.type === 'expense' ? { to: requiredInfo.payee } : { from: requiredInfo.payee }),
+      date: requiredInfo.date,
+      category: optionalInfo.category,
+      memo: optionalInfo.memo,
+    })
+    navigate(ROUTE.payment.list)
+    return createPaymentResult
   }
 
   return { handleSubmit, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional }

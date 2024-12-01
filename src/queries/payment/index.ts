@@ -1,1 +1,1 @@
-export * from './payment-list.api'
+export * from './payment.api'
