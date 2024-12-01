@@ -1,5 +1,5 @@
 import { Table } from '@radix-ui/themes'
-import { Payment } from '../../../queries/payment/payment-list.types'
+import { Payment } from '../../../queries/payment/payment-list.type'
 
 interface PaymentListItemProps {
   payment: Payment
