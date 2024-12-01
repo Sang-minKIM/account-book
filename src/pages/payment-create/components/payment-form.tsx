@@ -1,11 +1,16 @@
 import { Button, Flex } from '@radix-ui/themes'
 import { RequiredInfoFields } from './required-info-fields'
 import { OptionalInfoFields } from './optional-info-fields'
-import { usePaymentFormViewModel } from '../hooks/use-payment-form-view-model'
 import { ELEMENT_SIZE } from '~/constants/style'
+import { PaymentFormProps } from './payment-form.type'
 
-export const PaymentForm = () => {
-  const { handleSubmit, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional } = usePaymentFormViewModel()
+export const PaymentForm = ({
+  handleSubmit,
+  requiredInfo,
+  optionalInfo,
+  dispatchRequired,
+  dispatchOptional,
+}: PaymentFormProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <Flex gap="7" direction="column" justify="between">

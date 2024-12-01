@@ -1,7 +1,7 @@
 import { useMutation, useSuspenseQuery, UseSuspenseQueryResult } from '@tanstack/react-query'
 
 import { PAYMENTS_ENDPOINT, PAYMENTS_KEY } from './payment.model'
-import { Payment, PaymentCreateRequest } from './payment.type'
+import { Payment, PaymentMutationPayload } from './payment.type'
 import { request } from '~/utils/request'
 import { SortOrder } from '~/types/query.type'
 
@@ -19,10 +19,17 @@ export const usePaymentDetailQuery = (paymentId: string): UseSuspenseQueryResult
 
 export const usePaymentCreateMutation = () => {
   return useMutation({
-    mutationFn: (data: PaymentCreateRequest) =>
+    mutationFn: (data: PaymentMutationPayload) =>
       request(PAYMENTS_ENDPOINT.default, {
         method: 'POST',
         data: JSON.stringify(data),
       }),
+  })
+}
+
+export const usePaymentUpdateMutation = (paymentId: string) => {
+  return useMutation({
+    mutationFn: (data: PaymentMutationPayload) =>
+      request(PAYMENTS_ENDPOINT.update(paymentId), { method: 'PATCH', data: JSON.stringify(data) }),
   })
 }

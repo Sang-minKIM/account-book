@@ -1,10 +1,6 @@
-import { useParams } from 'react-router-dom'
 import { usePaymentDetailQuery } from '~/queries/payment/payment.api'
 
-export const usePaymentDetailViewModel = () => {
-  const { id: paymentId } = useParams()
-  console.log(paymentId)
-  if (!paymentId) throw new Error('paymentId를 찾을 수 없습니다.')
+export const usePaymentDetailViewModel = (paymentId: string) => {
   const {
     data: [
       {

@@ -1,11 +1,11 @@
 import { useReducer } from 'react'
-import { RequiredInfoAction, OptionalInfoAction } from '../components/payment-form.type'
-import { RequiredInfo, OptionalInfo, paymentFormSchema } from '~/queries/payment/payment.type'
+import { paymentFormSchema } from '~/queries/payment/payment.type'
 import { usePaymentCreateMutation } from '~/queries/payment'
 import { useNavigate } from 'react-router-dom'
 import { ROUTE } from '~/router'
+import { optionalInfoReducer, requiredInfoReducer } from '../services/payment-form-reducer'
 
-export const usePaymentFormViewModel = () => {
+export const usePaymentCreateViewModel = () => {
   const navigate = useNavigate()
   const [requiredInfo, dispatchRequired] = useReducer(requiredInfoReducer, {
     type: 'expense',
@@ -41,30 +41,4 @@ export const usePaymentFormViewModel = () => {
   }
 
   return { handleSubmit, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional }
-}
-
-function requiredInfoReducer(state: RequiredInfo, action: RequiredInfoAction) {
-  switch (action.type) {
-    case 'SET_TYPE':
-      return { ...state, type: action.payload }
-    case 'SET_AMOUNT':
-      return { ...state, amount: action.payload }
-    case 'SET_PAYEE':
-      return { ...state, payee: action.payload }
-    case 'SET_DATE':
-      return { ...state, date: action.payload }
-    default:
-      return state
-  }
-}
-
-function optionalInfoReducer(state: OptionalInfo, action: OptionalInfoAction) {
-  switch (action.type) {
-    case 'SET_CATEGORY':
-      return { ...state, category: action.payload }
-    case 'SET_MEMO':
-      return { ...state, memo: action.payload }
-    default:
-      return state
-  }
 }

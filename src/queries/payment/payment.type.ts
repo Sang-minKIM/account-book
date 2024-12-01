@@ -40,7 +40,7 @@ export type OptionalInfo = z.infer<typeof optionalInfoSchema>
 
 type PaymentBaseType = Omit<RequiredInfo, 'payee'> & OptionalInfo
 
-export interface PaymentCreateRequest extends PaymentBaseType {
+export interface PaymentMutationPayload extends PaymentBaseType {
   from?: string
   to?: string
 }

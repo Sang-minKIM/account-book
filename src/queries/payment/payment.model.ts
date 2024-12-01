@@ -8,6 +8,9 @@ export const PAYMENTS_ENDPOINT = {
   detail: (paymentId: string) => {
     return `${PAYMENTS_ENDPOINT.default}?id=eq.${paymentId}&select=*,category:categories(*)&limit=1`
   },
+  update: (paymentId: string) => {
+    return `${PAYMENTS_ENDPOINT.default}?id=eq.${paymentId}`
+  },
 }
 
 export const PAYMENTS_KEY = {
