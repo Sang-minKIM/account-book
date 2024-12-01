@@ -24,5 +24,6 @@ export const usePaymentDetailViewModel = (paymentId: string) => {
     minute: '2-digit',
     hour12: false,
   })
+
   return { type, amount: amountNumber, payee, memo, category, date: dateString }
 }

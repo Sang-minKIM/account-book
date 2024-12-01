@@ -12,7 +12,7 @@ export const PaymentUpdate = () => {
   const { id: paymentId } = useParams()
 
   if (!paymentId) throw new Error('paymentId를 찾을 수 없습니다.')
-  const { handleSubmit, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional } =
+  const { handleSubmit, handleDeleteClick, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional } =
     usePaymentUpdateViewModel(paymentId)
   return (
     <Flex direction="column" gap="8">
@@ -21,7 +21,7 @@ export const PaymentUpdate = () => {
           <ChevronLeftIcon width="24" height="24" />
         </IconLink>
         <Heading>거래내역 수정하기</Heading>
-        <IconButton variant="ghost" size="4">
+        <IconButton variant="ghost" size="4" onClick={handleDeleteClick}>
           <TrashIcon width="24" height="24" />
         </IconButton>
       </Flex>

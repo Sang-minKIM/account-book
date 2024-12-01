@@ -1,5 +1,5 @@
 import { useReducer } from 'react'
-import { usePaymentUpdateMutation } from '~/queries/payment/payment.api'
+import { usePaymentDeleteMutation, usePaymentUpdateMutation } from '~/queries/payment/payment.api'
 import { useNavigate } from 'react-router-dom'
 import { usePaymentDetailQuery } from '~/queries/payment/payment.api'
 import { paymentFormSchema } from '~/queries/payment/payment.type'
@@ -39,7 +39,7 @@ export const usePaymentUpdateViewModel = (paymentId: string) => {
       ...requiredInfo,
       ...optionalInfo,
     })
-    const updatePaymentResult = await updatePayment({
+    await updatePayment({
       type: requiredInfo.type,
       amount: requiredInfo.amount,
       ...(requiredInfo.type === 'expense' ? { to: requiredInfo.payee } : { from: requiredInfo.payee }),
@@ -48,8 +48,12 @@ export const usePaymentUpdateViewModel = (paymentId: string) => {
       memo: optionalInfo.memo,
     })
     navigate(ROUTE.payment.list)
-    return updatePaymentResult
+  }
+  const { mutateAsync: deletePayment } = usePaymentDeleteMutation(paymentId)
+  const handleDeleteClick = async () => {
+    await deletePayment()
+    navigate(ROUTE.payment.list)
   }
 
-  return { handleSubmit, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional }
+  return { handleSubmit, requiredInfo, optionalInfo, dispatchRequired, dispatchOptional, handleDeleteClick }
 }
