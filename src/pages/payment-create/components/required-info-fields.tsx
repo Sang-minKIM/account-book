@@ -2,6 +2,7 @@ import { Flex, SegmentedControl, Text, TextField } from '@radix-ui/themes'
 import { RequiredInfoProps } from './required-info-fields.type'
 import { commaNumber, parseCommaNumber } from '~/utils/number-format'
 import { ELEMENT_SIZE } from '~/constants/style'
+import { WON_UNIT } from '~/constants/unit'
 
 export const RequiredInfoFields = ({
   requiredInfo: { type, date, payee, amount },
@@ -58,5 +59,3 @@ export const RequiredInfoFields = ({
     </Flex>
   )
 }
-
-const WON_UNIT = '원'
