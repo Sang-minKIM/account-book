@@ -5,7 +5,10 @@ import { useCategoryListQuery } from '~/queries/category'
 import { SORT_ORDER } from '~/constants/query'
 import { ELEMENT_SIZE } from '~/constants/style'
 
-export const OptionalInfoFields = ({ optionalInfo: { memo }, dispatchOptional }: OptionalInfoProps) => {
+export const OptionalInfoFields = ({
+  optionalInfo: { memo, category: defaultCategory = 0 },
+  dispatchOptional,
+}: OptionalInfoProps) => {
   // FIXME: 리펙토링 필요 뷰모델로 옮길건지 결정, 메모 최대 길이 제한하는거 어떻게 할지
   const { data: categoryList } = useCategoryListQuery(SORT_ORDER.ASC)
 
@@ -15,7 +18,6 @@ export const OptionalInfoFields = ({ optionalInfo: { memo }, dispatchOptional }:
     }
     dispatchOptional({ type: 'SET_MEMO', payload: value })
   }
-  const defaultCategory = categoryList?.[0].id.toString()
 
   const categoryListContent = categoryList?.map((category) => (
     <Select.Item key={category.id} value={category.id.toString()}>
@@ -27,7 +29,7 @@ export const OptionalInfoFields = ({ optionalInfo: { memo }, dispatchOptional }:
     <Flex direction="column" gap="4">
       <Select.Root
         size={ELEMENT_SIZE}
-        defaultValue={defaultCategory}
+        defaultValue={defaultCategory.toString()}
         onValueChange={(value) => dispatchOptional({ type: 'SET_CATEGORY', payload: Number(value) })}
       >
         <Select.Trigger />
