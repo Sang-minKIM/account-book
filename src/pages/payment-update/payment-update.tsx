@@ -17,7 +17,7 @@ export const PaymentUpdate = () => {
   return (
     <Flex direction="column" gap="8">
       <Flex justify="between" align="center" gap="2" height="50px" p="2">
-        <IconLink to={ROUTE.payment.list}>
+        <IconLink to={ROUTE.payment.detail(paymentId)}>
           <ChevronLeftIcon width="24" height="24" />
         </IconLink>
         <Heading>거래내역 수정하기</Heading>
