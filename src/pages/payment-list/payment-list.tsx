@@ -5,12 +5,14 @@ import { PaymentListItem } from './components/payment-list-item'
 import { usePaymentListViewModel } from './hooks/use-payment-list-view-model'
 import { ROUTE } from '~/router'
 import { IconLink } from '~/components'
+import { DatePicker } from '~/components/calender'
 
 export const PaymentList = () => {
   const { paymentList, toggleSort, sortOrder } = usePaymentListViewModel()
 
   return (
     <Container>
+      <DatePicker />
       <Flex height="50px" align="center" justify="end" p="2">
         <IconLink to={ROUTE.payment.create}>
           <Pencil1Icon width="22" height="22" />
