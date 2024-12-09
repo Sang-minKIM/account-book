@@ -1,14 +1,13 @@
-import { Container, Flex, Table } from '@radix-ui/themes'
-import { Pencil1Icon } from '@radix-ui/react-icons'
-
-import { PaymentListItem } from './components/payment-list-item'
+import { Container, Flex, IconButton, Text } from '@radix-ui/themes'
+import { CalendarIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { usePaymentListViewModel } from './hooks/use-payment-list-view-model'
 import { ROUTE } from '~/router'
 import { IconLink } from '~/components'
 import { DatePicker } from '~/components/calender'
+import styled from 'styled-components'
 
 export const PaymentList = () => {
-  const { paymentList, toggleSort, sortOrder } = usePaymentListViewModel()
+  const { dailyPaymentList } = usePaymentListViewModel()
 
   return (
     <Container>
@@ -18,18 +17,37 @@ export const PaymentList = () => {
           <Pencil1Icon width="22" height="22" />
         </IconLink>
       </Flex>
-      <Table.Root>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell onClick={toggleSort}>
-              날짜 {sortOrder === 'desc' ? '▼' : '▲'}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>거래처</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell align="right">금액</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>{paymentList?.map((payment) => <PaymentListItem key={payment.id} payment={payment} />)}</Table.Body>
-      </Table.Root>
+      <Flex direction="column" gap="6">
+        {dailyPaymentList.map(([date, payments]) => (
+          <Flex key={date} direction="column" gap="4" px="6">
+            <Text size="1" color="gray">
+              {new Date(date).toLocaleDateString('ko-KR', { month: 'long', day: 'numeric', weekday: 'long' })}
+            </Text>
+            <Flex direction="column" gap="4">
+              {payments.map((payment) => (
+                <Flex key={payment.id} justify="start" align="center" gap="5">
+                  <IconButton size="3" color="indigo" variant="soft" radius="full">
+                    <CalendarIcon width={16} height={16} />
+                  </IconButton>
+                  <Flex direction="column">
+                    <Pay type={payment.type} weight="medium">
+                      {payment.type === 'expense' ? '-' : '+'}
+                      {payment.amount.toLocaleString()}원
+                    </Pay>
+                    <Text size="1" color="gray">
+                      {payment.type === 'expense' ? payment.to : payment.from}
+                    </Text>
+                  </Flex>
+                </Flex>
+              ))}
+            </Flex>
+          </Flex>
+        ))}
+      </Flex>
     </Container>
   )
 }
+
+const Pay = styled(Text)<{ type: 'expense' | 'income' }>`
+  color: ${({ type }) => (type === 'expense' ? 'black' : 'blue')};
+`
