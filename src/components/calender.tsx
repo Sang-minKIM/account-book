@@ -1,18 +1,11 @@
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ReloadIcon,
-  TriangleLeftIcon,
-  TriangleRightIcon,
-} from '@radix-ui/react-icons'
-import { Button, Flex, Grid as RGrid, IconButton, Link, Popover, Text } from '@radix-ui/themes'
+import { TriangleLeftIcon, TriangleRightIcon } from '@radix-ui/react-icons'
+import { Button, Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
 
-import { useReducer, useState } from 'react'
+import { useReducer } from 'react'
 import { times } from 'es-toolkit/compat'
 import styled from 'styled-components'
 
 const DAY_TITLES = ['일', '월', '화', '수', '목', '금', '토']
-const YEAR_OPTIONS = 7
 
 interface DatePickerProps {
   onDateChange?: (date: Date) => void
@@ -95,7 +88,6 @@ export function DatePicker({ onDateChange, defaultDate = new Date() }: DatePicke
     day: defaultDate.getDate(),
   }
   const [{ year, month, day }, dispatch] = useReducer(dateReducer, initialDate)
-  console.log(year, month, day)
   return (
     <Container direction="column" width="100%" height="fit-content">
       <Flex justify="center" mb="2" align="center" py="2" gap="2">
@@ -106,7 +98,7 @@ export function DatePicker({ onDateChange, defaultDate = new Date() }: DatePicke
         <Flex align="center" gap="2">
           <Flex gap="1">
             <Text>
-              {year === initialDate.year ? '' : year + '년'} {month + 1}월
+              {year}년 {month + 1}월
             </Text>
           </Flex>
         </Flex>
