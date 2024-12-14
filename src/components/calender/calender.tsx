@@ -60,10 +60,10 @@ export function Calender({ year, month, day, dispatch, getDailyPayment, onDateCh
               {date}
               <Flex direction="column" align="center" justify="center">
                 <Text size="1" color={'blue'}>
-                  {expense > 0 && paymentAmountFormat(expense, 'expense', 'short')}
+                  {income > 0 && paymentAmountFormat(income, 'income', 'short')}
                 </Text>
                 <Text size="1" color="red">
-                  {income > 0 && paymentAmountFormat(income, 'income', 'short')}
+                  {expense > 0 && paymentAmountFormat(expense, 'expense', 'short')}
                 </Text>
               </Flex>
             </DayButton>
