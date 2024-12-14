@@ -1,12 +1,14 @@
 import { useState } from 'react'
+import { DateState } from '~/components/calender/calender.type'
 import { SORT_ORDER } from '~/constants/query'
 
-import { Payment, usePaymentsListQuery } from '~/queries/payment'
+import { Payment, RequiredInfo, usePaymentsListQuery } from '~/queries/payment'
 import { SortOrder } from '~/types/query.type'
 
 export const usePaymentListViewModel = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>(SORT_ORDER.DESC)
   const { data } = usePaymentsListQuery(sortOrder)
+
   const dailyPaymentMap = data?.reduce<Map<string, Payment[]>>((map, payment) => {
     const date = payment.date.split('T')[0]
     if (!map.has(date)) {
@@ -23,10 +25,24 @@ export const usePaymentListViewModel = () => {
     setSortOrder((prev) => (prev === SORT_ORDER.DESC ? SORT_ORDER.ASC : SORT_ORDER.DESC))
   }
 
+  const getDailyPayment = ({ type, year, month, day }: Pick<RequiredInfo, 'type'> & DateState) => {
+    const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
+    const payments = dailyPaymentMap.get(date)
+    return payments
+      ? payments.reduce((sum, payment) => {
+          if (payment.type === type) {
+            return sum + payment.amount
+          }
+          return sum
+        }, 0)
+      : ''
+  }
+
   return {
     paymentList: data || [],
     dailyPaymentList: dailyPaymentArray,
     toggleSort,
     sortOrder,
+    getDailyPayment,
   }
 }

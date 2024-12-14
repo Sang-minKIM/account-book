@@ -1,14 +1,15 @@
 import { z } from 'zod'
 import { CategoryResponse } from '../category'
+import { PAYMENT_TYPE } from '~/constants/payment'
 
 type ExpensePayment = {
-  type: 'expense'
+  type: typeof PAYMENT_TYPE.EXPENSE
   from?: string
   to: string
 }
 
 type IncomePayment = {
-  type: 'income'
+  type: typeof PAYMENT_TYPE.INCOME
   from: string
   to?: string
 }
@@ -21,7 +22,7 @@ export type Payment = {
 } & (ExpensePayment | IncomePayment)
 
 const requiredInfoSchema = z.object({
-  type: z.enum(['income', 'expense']),
+  type: z.enum([PAYMENT_TYPE.INCOME, PAYMENT_TYPE.EXPENSE]),
   amount: z.number().positive().max(1000000000, '너무 큰 금액입니다.'),
   payee: z.string().min(1, '필수 입력 항목입니다.'),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/, '올바른 날짜를 입력해주세요'),
