@@ -11,8 +11,8 @@ export const usePaymentListViewModel = () => {
   const { year, month, day, dispatch: dispatchCalender } = useCalender()
   const { data } = usePaymentsListQuery(toNumber(year), toNumber(month) + 1, SORT_ORDER.DESC)
 
-  const allIncome = useMemo(() => getSumOfPayments('income', data), [data])
-  const allExpense = useMemo(() => getSumOfPayments('expense', data), [data])
+  const monthlyIncome = useMemo(() => getSumOfPayments('income', data), [data])
+  const monthlyExpense = useMemo(() => getSumOfPayments('expense', data), [data])
 
   const dailyPaymentMap = useMemo(
     () =>
@@ -46,7 +46,7 @@ export const usePaymentListViewModel = () => {
     month,
     day,
     dispatchCalender,
-    allIncome,
-    allExpense,
+    monthlyIncome,
+    monthlyExpense,
   }
 }
