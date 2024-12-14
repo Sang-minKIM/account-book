@@ -35,7 +35,7 @@ export const usePaymentListViewModel = () => {
           }
           return sum
         }, 0)
-      : ''
+      : 0
   }
 
   return {

@@ -3,7 +3,7 @@ import { ACTION_TYPE } from './calender.model'
 
 export interface CalenderProps {
   defaultDate?: Date
-  getDailyPayment: ({ type, year, month, day }: Pick<RequiredInfo, 'type'> & DateState) => number | undefined
+  getDailyPayment: ({ type, year, month, day }: Pick<RequiredInfo, 'type'> & DateState) => number
   onDateChange?: (date: Date) => void
 }
 

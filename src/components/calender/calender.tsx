@@ -71,10 +71,10 @@ export function Calender({ defaultDate = new Date(), getDailyPayment, onDateChan
               {date}
               <Flex direction="column" align="center" justify="center">
                 <Text size="1" color={'blue'}>
-                  {expense && '+' + expense}
+                  {expense > 0 && '+' + expense}
                 </Text>
                 <Text size="1" color="red">
-                  {income && '-' + income}
+                  {income > 0 && '-' + income}
                 </Text>
               </Flex>
             </DayButton>
