@@ -59,7 +59,7 @@ export function Calender({ year, month, day, dispatch, getDailyPayment, onDateCh
             >
               {date}
               <Flex direction="column" align="center" justify="center">
-                <Text size="1" color={'blue'}>
+                <Text size="1" color="blue">
                   {income > 0 && paymentAmountFormat(income, 'income', 'short')}
                 </Text>
                 <Text size="1" color="red">
