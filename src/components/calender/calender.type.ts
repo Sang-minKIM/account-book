@@ -1,10 +1,15 @@
 import { RequiredInfo } from '~/queries/payment'
 import { ACTION_TYPE } from './calender.model'
+import { Dispatch } from 'react'
 
 export interface CalenderProps {
   defaultDate?: Date
   getDailyPayment: ({ type, year, month, day }: Pick<RequiredInfo, 'type'> & DateState) => number
   onDateChange?: (date: Date) => void
+  year: number
+  month: number
+  day: number
+  dispatch: Dispatch<ActionType>
 }
 
 export interface DateState {

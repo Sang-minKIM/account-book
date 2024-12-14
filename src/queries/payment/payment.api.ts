@@ -5,10 +5,10 @@ import { Payment, PaymentMutationPayload } from './payment.type'
 import { request } from '~/utils/request'
 import { SortOrder } from '~/types/query.type'
 
-export const usePaymentsListQuery = (sortOrder: SortOrder) =>
+export const usePaymentsListQuery = (year: number, month: number, sortOrder: SortOrder) =>
   useSuspenseQuery<Payment[]>({
-    queryKey: PAYMENTS_KEY.order({ order: sortOrder }),
-    queryFn: () => request(PAYMENTS_ENDPOINT.order({ order: sortOrder })),
+    queryKey: PAYMENTS_KEY.list(year, month, sortOrder),
+    queryFn: () => request(PAYMENTS_ENDPOINT.list(year, month, sortOrder)),
   })
 
 export const usePaymentDetailQuery = (paymentId: string) =>

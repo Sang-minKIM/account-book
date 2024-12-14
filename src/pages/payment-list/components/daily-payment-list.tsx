@@ -1,9 +1,11 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { Flex, IconButton, Text } from '@radix-ui/themes'
 import styled from 'styled-components'
-import { Payment } from '~/queries/payment'
+import { Payment, RequiredInfo } from '~/queries/payment'
 import { dateFormat } from '~/utils/date'
 import { paymentAmountFormat } from '~/utils/units'
+import { ROUTE } from '~/router'
+import { useNavigate } from 'react-router-dom'
 
 export const DailyPaymentList = ({ dailyPaymentList }: { dailyPaymentList: [string, Payment[]][] }) => {
   return (
@@ -25,8 +27,14 @@ export const DailyPaymentList = ({ dailyPaymentList }: { dailyPaymentList: [stri
 }
 
 const PaymentInfo = ({ payment }: { payment: Payment }) => {
+  const navigate = useNavigate()
+
+  const handleClick = () => {
+    navigate(ROUTE.payment.detail(payment.id))
+  }
+
   return (
-    <Flex justify="start" align="center" gap="5">
+    <Flex justify="start" align="center" gap="5" onClick={handleClick}>
       <IconButton size="3" color="indigo" variant="soft" radius="full">
         <CalendarIcon width={16} height={16} />
       </IconButton>
@@ -42,6 +50,6 @@ const PaymentInfo = ({ payment }: { payment: Payment }) => {
   )
 }
 
-const Pay = styled(Text)<{ type: 'expense' | 'income' }>`
+const Pay = styled(Text)<{ type: RequiredInfo['type'] }>`
   color: ${({ type }) => (type === 'expense' ? 'black' : 'blue')};
 `

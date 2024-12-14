@@ -1,13 +1,13 @@
-import { useState } from 'react'
 import { DateState } from '~/components/calender/calender.type'
+import { useCalender } from '~/components/calender/hooks/use-calender'
 import { SORT_ORDER } from '~/constants/query'
 
 import { Payment, RequiredInfo, usePaymentsListQuery } from '~/queries/payment'
-import { SortOrder } from '~/types/query.type'
+import { toNumber } from '~/utils/number'
 
 export const usePaymentListViewModel = () => {
-  const [sortOrder, setSortOrder] = useState<SortOrder>(SORT_ORDER.DESC)
-  const { data } = usePaymentsListQuery(sortOrder)
+  const { year, month, day, dispatch: dispatchCalender } = useCalender()
+  const { data } = usePaymentsListQuery(toNumber(year), toNumber(month) + 1, SORT_ORDER.DESC)
 
   const dailyPaymentMap = data?.reduce<Map<string, Payment[]>>((map, payment) => {
     const date = payment.date.split('T')[0]
@@ -20,10 +20,6 @@ export const usePaymentListViewModel = () => {
 
   // Map을 배열로 변환합니다.
   const dailyPaymentArray = dailyPaymentMap ? Array.from(dailyPaymentMap.entries()) : []
-
-  const toggleSort = () => {
-    setSortOrder((prev) => (prev === SORT_ORDER.DESC ? SORT_ORDER.ASC : SORT_ORDER.DESC))
-  }
 
   const getDailyPayment = ({ type, year, month, day }: Pick<RequiredInfo, 'type'> & DateState) => {
     const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
@@ -39,10 +35,11 @@ export const usePaymentListViewModel = () => {
   }
 
   return {
-    paymentList: data || [],
     dailyPaymentList: dailyPaymentArray,
-    toggleSort,
-    sortOrder,
     getDailyPayment,
+    year,
+    month,
+    day,
+    dispatchCalender,
   }
 }

@@ -1,26 +1,14 @@
 import { TriangleLeftIcon, TriangleRightIcon } from '@radix-ui/react-icons'
 import { Button, Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
 
-import { useReducer } from 'react'
 import { times } from 'es-toolkit/compat'
 import styled from 'styled-components'
-import {
-  getDayOfFirstDayInMonth,
-  getLastDayOfMonth,
-  getNextMonthAndYear,
-  getPrevMonthAndYear,
-} from './services/calender'
+import { getDayOfFirstDayInMonth, getLastDayOfMonth } from './services/calender'
 import { ACTION_TYPE, DAY_TITLES } from './calender.model'
-import { ActionType, CalenderProps, DateState } from './calender.type'
+import { CalenderProps } from './calender.type'
 import { paymentAmountFormat } from '~/utils/units'
 
-export function Calender({ defaultDate = new Date(), getDailyPayment, onDateChange }: CalenderProps) {
-  const initialDate = {
-    year: defaultDate.getFullYear(),
-    month: defaultDate.getMonth(),
-    day: defaultDate.getDate(),
-  }
-  const [{ year, month, day }, dispatch] = useReducer(dateReducer, initialDate)
+export function Calender({ year, month, day, dispatch, getDailyPayment, onDateChange }: CalenderProps) {
   return (
     <Container direction="column" width="100%" height="fit-content">
       <Flex justify="center" mb="2" align="center" py="2" gap="2">
@@ -90,36 +78,6 @@ export function Calender({ defaultDate = new Date(), getDailyPayment, onDateChan
       </Grid>
     </Container>
   )
-}
-
-function dateReducer(state: DateState, action: ActionType): DateState {
-  switch (action.type) {
-    case ACTION_TYPE.SET_MONTH:
-      return { ...state, month: action.payload, day: 1 }
-    case ACTION_TYPE.SET_PREV_MONTH: {
-      const [prevYear, prevMonth] = getPrevMonthAndYear(state.year, state.month)
-      const daysInPrevMonth = getLastDayOfMonth(prevYear, prevMonth)
-      return {
-        ...state,
-        year: prevYear,
-        month: prevMonth,
-        day: daysInPrevMonth,
-      }
-    }
-    case ACTION_TYPE.SET_NEXT_MONTH: {
-      const [nextYear, nextMonth] = getNextMonthAndYear(state.year, state.month)
-      return {
-        ...state,
-        year: nextYear,
-        month: nextMonth,
-        day: 1,
-      }
-    }
-    case ACTION_TYPE.SET_DAY:
-      return { ...state, day: action.payload }
-    default:
-      return state
-  }
 }
 
 const Container = styled(Flex)`

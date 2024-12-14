@@ -8,7 +8,7 @@ import { DailyPaymentList } from './components/daily-payment-list'
 import { Calender } from '~/components/calender'
 
 export const PaymentList = () => {
-  const { dailyPaymentList, getDailyPayment } = usePaymentListViewModel()
+  const { dailyPaymentList, getDailyPayment, year, month, day, dispatchCalender } = usePaymentListViewModel()
 
   return (
     <Container>
@@ -19,7 +19,7 @@ export const PaymentList = () => {
       </Flex>
       <Flex justify="between" gap="9" height="calc(100dvh - 50px)">
         <Section width="50%" minWidth="300px">
-          <Calender getDailyPayment={getDailyPayment} />
+          <Calender getDailyPayment={getDailyPayment} year={year} month={month} day={day} dispatch={dispatchCalender} />
         </Section>
         <Section width="50%" minWidth="300px">
           <DailyPaymentList dailyPaymentList={dailyPaymentList} />
