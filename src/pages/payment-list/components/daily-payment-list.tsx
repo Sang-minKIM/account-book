@@ -1,7 +1,6 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { Flex, IconButton, Text } from '@radix-ui/themes'
-import styled from 'styled-components'
-import { Payment, RequiredInfo } from '~/queries/payment'
+import { Payment } from '~/queries/payment'
 import { dateFormat } from '~/utils/date'
 import { paymentAmountFormat } from '~/utils/units'
 import { ROUTE } from '~/router'
@@ -39,9 +38,9 @@ const PaymentInfo = ({ payment }: { payment: Payment }) => {
         <CalendarIcon width={16} height={16} />
       </IconButton>
       <Flex direction="column">
-        <Pay type={payment.type} weight="medium">
+        <Text weight="medium" color={payment.type === 'expense' ? undefined : 'blue'}>
           {paymentAmountFormat(payment.amount, payment.type, 'full')}
-        </Pay>
+        </Text>
         <Text size="1" color="gray">
           {payment.type === 'expense' ? payment.to : payment.from}
         </Text>
@@ -49,7 +48,3 @@ const PaymentInfo = ({ payment }: { payment: Payment }) => {
     </Flex>
   )
 }
-
-const Pay = styled(Text)<{ type: RequiredInfo['type'] }>`
-  color: ${({ type }) => (type === 'expense' ? 'black' : 'blue')};
-`
