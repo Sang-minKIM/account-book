@@ -1,13 +1,16 @@
-import { Container, Flex, Table } from '@radix-ui/themes'
+import { Container, Flex, Section } from '@radix-ui/themes'
 import { Pencil1Icon } from '@radix-ui/react-icons'
-
-import { PaymentListItem } from './components/payment-list-item'
-import { usePaymentListViewModel } from './hooks/use-payment-list-view-model'
+import { usePaymentListViewModel } from './hooks/use-payment-list-view-model.ts'
 import { ROUTE } from '~/router'
 import { IconLink } from '~/components'
+import { Calender } from '~/components/calender'
+
+import { DailyPaymentList } from './components/daily-payment-list'
+import { MonthlyPayment } from './components/monthly-payment'
 
 export const PaymentList = () => {
-  const { paymentList, toggleSort, sortOrder } = usePaymentListViewModel()
+  const { dailyPaymentList, getDailyPayment, monthlyIncome, monthlyExpense, year, month, day, dispatchCalender } =
+    usePaymentListViewModel()
 
   return (
     <Container>
@@ -16,18 +19,15 @@ export const PaymentList = () => {
           <Pencil1Icon width="22" height="22" />
         </IconLink>
       </Flex>
-      <Table.Root>
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeaderCell onClick={toggleSort}>
-              날짜 {sortOrder === 'desc' ? '▼' : '▲'}
-            </Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>거래처</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell align="right">금액</Table.ColumnHeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>{paymentList?.map((payment) => <PaymentListItem key={payment.id} payment={payment} />)}</Table.Body>
-      </Table.Root>
+      <Flex justify="between" gap="9" height="calc(100dvh - 50px)">
+        <Section width="50%" minWidth="300px">
+          <Calender getDailyPayment={getDailyPayment} year={year} month={month} day={day} dispatch={dispatchCalender} />
+          <MonthlyPayment monthlyIncome={monthlyIncome} monthlyExpense={monthlyExpense} />
+        </Section>
+        <Section width="50%" minWidth="300px">
+          <DailyPaymentList dailyPaymentList={dailyPaymentList} />
+        </Section>
+      </Flex>
     </Container>
   )
 }
