@@ -12,6 +12,7 @@ import {
 } from './services/calender'
 import { ACTION_TYPE, DAY_TITLES } from './calender.model'
 import { ActionType, CalenderProps, DateState } from './calender.type'
+import { paymentAmountFormat } from '~/utils/units'
 
 export function Calender({ defaultDate = new Date(), getDailyPayment, onDateChange }: CalenderProps) {
   const initialDate = {
@@ -71,10 +72,10 @@ export function Calender({ defaultDate = new Date(), getDailyPayment, onDateChan
               {date}
               <Flex direction="column" align="center" justify="center">
                 <Text size="1" color={'blue'}>
-                  {expense > 0 && '+' + expense}
+                  {expense > 0 && paymentAmountFormat(expense, 'expense', 'short')}
                 </Text>
                 <Text size="1" color="red">
-                  {income > 0 && '-' + income}
+                  {income > 0 && paymentAmountFormat(income, 'income', 'short')}
                 </Text>
               </Flex>
             </DayButton>
