@@ -6,6 +6,7 @@ import { PaymentList } from '~/pages/payment-list'
 import { PaymentCreate } from '~/pages/payment-create'
 import { PaymentDetail } from '~/pages/payment-detail'
 import { PaymentUpdate } from '~/pages/payment-update/payment-update'
+import { Statistics } from '~/pages/statistics/statistics'
 
 export const router = createBrowserRouter([
   {
@@ -27,5 +28,9 @@ export const router = createBrowserRouter([
   {
     path: ROUTE.payment.update(':id'),
     element: <PaymentUpdate />,
+  },
+  {
+    path: ROUTE.statistics,
+    element: <Statistics />,
   },
 ])
