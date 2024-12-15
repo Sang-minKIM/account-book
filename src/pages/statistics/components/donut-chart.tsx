@@ -42,7 +42,7 @@ export const DonutChart = ({ data }: DonutChartProps) => {
               prevDegree: accumulatedAngles[index],
               degree: accumulatedAngles[index + 1],
             })}
-            stroke={`var(--accent-${11 - index})`}
+            stroke={`var(--accent-${11 - index * 2})`}
             strokeWidth={20}
             fill="transparent"
           />
@@ -62,8 +62,8 @@ const getArc = ({ x, y, radius, prevDegree, degree }: ArcProps) => {
   // 원점, 회전각 받음 => 끝 좌표 구해서 => 호 그리기
   const startCoord = getCoordsOnCircle({ x, y, radius, degree: prevDegree - QUARTER_CIRCLE_DEGREES })
   const endCoord = getCoordsOnCircle({ x, y, radius, degree: degree - QUARTER_CIRCLE_DEGREES })
-  const isLargeArc = degree > 180 ? 0 : 1
-  // A rx ry x축-회전각 큰-호-플래그 쓸기-방향-플래그 dx dy
+  const isLargeArc = degree - prevDegree > 180 ? 1 : 0
+  // A rx ry, x축-회전각, 큰-호-플래그, 쓸기-방향-플래그, dx dy
   const d = `
     M ${startCoord.x} ${startCoord.y} 
     A ${radius} ${radius}, 0, ${isLargeArc}, 1, ${endCoord.x} ${endCoord.y}
