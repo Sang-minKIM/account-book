@@ -11,7 +11,7 @@ export const Statistics = () => {
   ]
   expenses.sort((a, b) => b.amount - a.amount)
   return (
-    <Flex direction="column" align="center" gap="1">
+    <Flex direction="column" align="center" gap="6">
       <DonutChart data={expenses} />
       <Flex direction="column" gap="2">
         {expenses.map((item, index) => (
