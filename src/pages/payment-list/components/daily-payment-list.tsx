@@ -1,7 +1,6 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { Flex, IconButton, Text } from '@radix-ui/themes'
 import { Payment } from '~/queries/payment'
-import { dateFormat } from '~/utils/date'
 import { paymentAmountFormat } from '~/utils/units'
 import { ROUTE } from '~/router'
 import { useNavigate } from 'react-router-dom'
@@ -12,7 +11,7 @@ export const DailyPaymentList = ({ dailyPaymentList }: { dailyPaymentList: [stri
       {dailyPaymentList.map(([date, payments]) => (
         <Flex key={date} direction="column" gap="4" px="6">
           <Text size="1" color="gray">
-            {dateFormat(date)}
+            {date}
           </Text>
           <Flex direction="column" gap="4">
             {payments.map((payment) => (

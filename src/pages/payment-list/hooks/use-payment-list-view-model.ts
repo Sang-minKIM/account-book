@@ -6,6 +6,7 @@ import { SORT_ORDER } from '~/constants/query'
 import { Payment, RequiredInfo, usePaymentsListQuery } from '~/queries/payment'
 import { toNumber } from '~/utils/number'
 import { getSumOfPayments } from '../services/getSumOfPayments'
+import { dateFormat } from '~/utils/date'
 
 export const usePaymentListViewModel = () => {
   const { year, month, day, dispatch: dispatchCalender } = useCalender()
@@ -28,7 +29,9 @@ export const usePaymentListViewModel = () => {
   )
 
   // Map을 배열로 변환합니다.
-  const dailyPaymentArray = dailyPaymentMap ? Array.from(dailyPaymentMap.entries()) : []
+  const dailyPaymentArray = dailyPaymentMap
+    ? Array.from(dailyPaymentMap.entries()).map(([date, payments]) => [dateFormat(date), payments])
+    : []
 
   const getDailyPayment = useCallback(
     ({ type, year, month, day }: Pick<RequiredInfo, 'type'> & DateState) => {
