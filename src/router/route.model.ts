@@ -6,4 +6,5 @@ export const ROUTE = {
     create: '/payments/create',
     update: (id: string) => `/payments/update/${id}`,
   },
+  statistics: '/statistics',
 }
