@@ -2,22 +2,43 @@ import { styled } from 'styled-components'
 import { DonutChart } from './components/donut-chart'
 import { Flex, Text } from '@radix-ui/themes'
 import { paymentAmountFormat } from '~/utils/units'
+import { Payment, usePaymentsListQuery } from '~/queries/payment'
+import { toNumber } from '~/utils/number'
+import { SORT_ORDER } from '~/constants/query'
+import { useMemo } from 'react'
 
 export const Statistics = () => {
-  const expenses = [
-    { label: '식비', amount: 300 },
-    { label: '기타', amount: 50 },
-    { label: '교통비', amount: 150 },
-    { label: '유흥비', amount: 100 },
-    { label: '월세', amount: 100 },
-  ]
-  const total = expenses.reduce((result, value) => result + value.amount, 0)
-  expenses.sort((a, b) => b.amount - a.amount)
+  const date = new Date()
+  const { year, month } = { year: date.getFullYear(), month: date.getMonth() }
+  const { data } = usePaymentsListQuery(toNumber(year), toNumber(month) + 1, SORT_ORDER.DESC)
+
+  const categoryPaymentMap = useMemo(
+    () =>
+      data?.reduce<Map<string, Payment[]>>((map, payment) => {
+        const category = payment.category.name
+        if (!map.has(category)) {
+          map.set(category, [])
+        }
+        map.get(category)!.push(payment)
+        return map
+      }, new Map<string, Payment[]>()),
+    [data]
+  )
+
+  const categoryTotalPayment = useMemo(() => {
+    return Array.from(categoryPaymentMap.entries()).map(([category, payments]) => {
+      const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0)
+      return { label: category, amount: totalAmount }
+    })
+  }, [categoryPaymentMap])
+  categoryTotalPayment.sort((a, b) => b.amount - a.amount)
+
+  const total = categoryTotalPayment.reduce((result, value) => result + value.amount, 0)
   return (
     <Flex direction="column" align="center" gap="6">
-      <DonutChart data={expenses} />
+      <DonutChart data={categoryTotalPayment} />
       <Flex direction="column" gap="2">
-        {expenses.map((item, index) => (
+        {categoryTotalPayment.map((item, index) => (
           <Legend
             key={item.label}
             label={item.label}
