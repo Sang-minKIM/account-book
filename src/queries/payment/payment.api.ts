@@ -18,7 +18,7 @@ export const useAllPaymentsListQuery = () =>
   // TODO: usePaymentsListQuery 리팩토링 후 삭제
   useSuspenseQuery<Payment[]>({
     queryKey: PAYMENTS_KEY.default,
-    queryFn: () => request(PAYMENTS_ENDPOINT.all({ sortOrder: 'asc' })),
+    queryFn: () => request(PAYMENTS_ENDPOINT.all({ sortOrder: 'desc' })),
   })
 
 export const usePaymentDetailQuery = (paymentId: string) =>
