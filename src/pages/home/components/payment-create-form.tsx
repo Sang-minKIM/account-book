@@ -7,7 +7,7 @@ import { MAX_MEMO_LENGTH } from '~/constants/payment'
 import { Label } from '~/components/base'
 
 export const PaymentCreateForm = () => {
-  const { payment, dispatch, categoryList } = usePaymentCreateFormViewModel()
+  const { payment, dispatch, categoryList, onSubmit } = usePaymentCreateFormViewModel()
   const { type, amount, payee, date, memo } = payment
 
   const displayAmount = amount === 0 ? '' : commaNumber(amount)
@@ -31,8 +31,12 @@ export const PaymentCreateForm = () => {
             <SegmentedControl.Item value="income">수입</SegmentedControl.Item>
           </SegmentedControl.Root>
           <Flex gap="2">
-            <Button variant="soft">초기화</Button>
-            <Button variant="solid">저장</Button>
+            <Button variant="soft" onClick={() => dispatch({ type: 'CLEAR' })}>
+              초기화
+            </Button>
+            <Button variant="solid" onClick={onSubmit}>
+              저장
+            </Button>
           </Flex>
         </Flex>
         <Grid columns="5" gap="4">

@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { MAX_MEMO_LENGTH, PAYMENT_TYPE } from '~/constants/payment'
 import { SORT_ORDER } from '~/constants/query'
 import { useCategoryListQuery } from '~/queries/category'
+import { useAllPaymentsListQuery, usePaymentCreateMutation } from '~/queries/payment'
 import { paymentCreateSchema } from '~/queries/payment/payment.type'
 
 type Payment = z.infer<typeof paymentCreateSchema>
@@ -11,8 +12,22 @@ export const usePaymentCreateFormViewModel = () => {
   const [payment, dispatch] = useReducer(reducer, initialState)
 
   const { data: categoryList } = useCategoryListQuery(SORT_ORDER.ASC)
+  const { refetch: refetchPayments } = useAllPaymentsListQuery()
 
-  return { payment, dispatch, categoryList }
+  const { mutateAsync: createPayment } = usePaymentCreateMutation()
+
+  const onSubmit = async () => {
+    const { payee, ...rest } = payment
+    const payload = {
+      ...rest,
+      ...(payment.type === 'expense' ? { to: payee } : { from: payee }),
+    }
+    dispatch({ type: 'CLEAR' })
+    await createPayment(payload)
+    await refetchPayments()
+  }
+
+  return { payment, dispatch, categoryList, onSubmit }
 }
 
 const initialState: Payment = {
@@ -20,7 +35,7 @@ const initialState: Payment = {
   amount: 0,
   payee: '',
   date: '',
-  category: 0,
+  category: 1,
   memo: '',
 }
 
