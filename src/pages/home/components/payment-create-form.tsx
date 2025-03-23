@@ -108,6 +108,7 @@ export const PaymentCreateForm = () => {
               <TextArea
                 size={ELEMENT_SIZE}
                 placeholder="메모를 남겨보세요"
+                value={memo}
                 onChange={({ target: { value } }) => dispatch({ type: 'SET_MEMO', payload: value })}
                 maxLength={MAX_MEMO_LENGTH}
               />
