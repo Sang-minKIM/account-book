@@ -10,8 +10,8 @@ export const PaymentListTable = () => {
   const { data } = useAllPaymentsListQuery()
 
   return (
-    <Flex direction="column" gap="4">
-      <Text size="5" weight="bold">
+    <Flex direction="column" gap="2">
+      <Text size="4" weight="bold">
         입출금 내역
       </Text>
       <Table.Root<Payment> data={data} columns={columns}>

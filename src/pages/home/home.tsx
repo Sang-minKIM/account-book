@@ -1,11 +1,11 @@
-import { PaymentAddForm } from './components/payment-add-form'
-import { PaymentListTable } from './components/payment-list-table'
+import { Flex } from '@radix-ui/themes'
+import { PaymentCreateForm, PaymentListTable } from './components'
 
 export const Home = () => {
   return (
-    <>
-      <PaymentAddForm />
+    <Flex height="100%" direction="column" gap="5">
       <PaymentListTable />
-    </>
+      <PaymentCreateForm />
+    </Flex>
   )
 }
