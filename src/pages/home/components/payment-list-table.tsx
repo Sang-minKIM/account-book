@@ -1,25 +1,16 @@
-import { Checkbox, Text } from '@radix-ui/themes'
+import { Text } from '@radix-ui/themes'
+import { ColumnDef } from '@tanstack/react-table'
 
 import { Table } from '~/components/table'
 
-import { useAllPaymentsListQuery } from '~/queries/payment'
+import { Payment, useAllPaymentsListQuery } from '~/queries/payment'
 import { paymentAmountFormat } from '~/utils/units'
 
 export const PaymentListTable = () => {
   const { data } = useAllPaymentsListQuery()
-  const paymentList = data?.map((payment) => ({
-    id: payment.id,
-    type: payment.type,
-    amount: payment.amount,
-    from: payment.from,
-    to: payment.to,
-    category: payment.category.name,
-    date: payment.date.replace('T', ' '),
-    memo: payment.memo,
-  }))
 
   return (
-    <Table.Root data={paymentList} columns={columns} enablePagination>
+    <Table.Root<Payment> data={data} columns={columns} enablePagination>
       <Table.Header />
       <Table.Body />
       <Table.Footer />
@@ -27,7 +18,7 @@ export const PaymentListTable = () => {
   )
 }
 
-const columns = [
+const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: 'amount',
     header: '금액',
@@ -44,6 +35,7 @@ const columns = [
   },
   {
     accessorKey: 'category',
+    accessorFn: (row) => row.category.name,
     header: '카테고리',
   },
   {
