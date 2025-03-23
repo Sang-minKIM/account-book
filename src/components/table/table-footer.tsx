@@ -3,7 +3,7 @@ import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { useTableContext } from './context'
 import { S } from './style'
 
-export const TableFooter = () => {
+export const TableFooter = ({ pageSizeOptionList = [10, 20, 30, 50] }: { pageSizeOptionList?: number[] }) => {
   const { table, pagination } = useTableContext()
 
   const isPaginationEnabled = pagination.pageSize !== table.getRowCount()
@@ -13,7 +13,8 @@ export const TableFooter = () => {
       <Flex gap="3" align="center" justify="between" p="3">
         <div>
           <Text size="2">
-            {table.getFilteredSelectedRowModel().rows.length}개 선택 / 총 {table.getFilteredRowModel().rows.length}개
+            {/* {table.getFilteredSelectedRowModel().rows.length}개 선택 /  */}총
+            {table.getFilteredRowModel().rows.length}개
           </Text>
         </div>
         {isPaginationEnabled && (
@@ -35,7 +36,7 @@ export const TableFooter = () => {
             >
               <Select.Trigger />
               <Select.Content>
-                {[10, 20, 30, 50].map((pageSize) => (
+                {pageSizeOptionList.map((pageSize) => (
                   <Select.Item key={pageSize} value={String(pageSize)}>
                     {pageSize}행
                   </Select.Item>
