@@ -16,7 +16,7 @@ export const usePaymentCreateFormViewModel = () => {
 
   const { mutateAsync: createPayment } = usePaymentCreateMutation()
 
-  const onSubmit = async () => {
+  const handleSubmit = async () => {
     const { payee, ...rest } = payment
     const payload = {
       ...rest,
@@ -27,7 +27,14 @@ export const usePaymentCreateFormViewModel = () => {
     await refetchPayments()
   }
 
-  return { payment, dispatch, categoryList, onSubmit }
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault()
+      handleSubmit()
+    }
+  }
+
+  return { payment, dispatch, categoryList, handleSubmit, handleKeyDown }
 }
 
 const initialState: Payment = {
