@@ -1,4 +1,4 @@
-import { Button, Flex, SegmentedControl, Select, Text, TextArea, TextField, Grid, Card } from '@radix-ui/themes'
+import { Button, Flex, SegmentedControl, Select, Text, TextArea, TextField, Grid, Card, Kbd } from '@radix-ui/themes'
 import { ELEMENT_SIZE } from '~/constants/style'
 import { WON_UNIT } from '~/constants/unit'
 import { commaNumber, parseCommaNumber } from '~/utils/number-format'
@@ -36,7 +36,10 @@ export const PaymentCreateForm = () => {
                 초기화
               </Button>
               <Button variant="solid" onClick={handleSubmit}>
-                저장
+                <Flex align="center" gap="2">
+                  <Text>등록</Text>
+                  <Text>⌘ ⏎</Text>
+                </Flex>
               </Button>
             </Flex>
           </Flex>
