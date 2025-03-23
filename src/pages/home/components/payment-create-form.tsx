@@ -36,7 +36,10 @@ export const PaymentCreateForm = () => {
                 초기화
               </Button>
               <Button variant="solid" onClick={handleSubmit}>
-                저장
+                <Flex align="center" gap="2">
+                  <Text>등록</Text>
+                  <Text>⌘ ⏎</Text>
+                </Flex>
               </Button>
             </Flex>
           </Flex>
