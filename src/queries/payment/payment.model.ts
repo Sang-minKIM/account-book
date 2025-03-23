@@ -2,6 +2,8 @@ import { SortOrder } from '~/types/query.type'
 
 export const PAYMENTS_ENDPOINT = {
   default: '/payments',
+  all: ({ sortOrder }: { sortOrder?: SortOrder }) =>
+    `${PAYMENTS_ENDPOINT.default}?select=*,category:categories(*)&order=date.${sortOrder}`,
   list: (year: number, month: number, sortOrder: SortOrder) => {
     const startDate = `${year}-${month.toString().padStart(2, '0')}-01`
     const endDate = `${year}-${month.toString().padStart(2, '0')}-${new Date(year, month, 0).getDate()}`

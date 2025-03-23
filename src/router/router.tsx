@@ -5,13 +5,14 @@ import { ROUTE } from './route.model'
 import { PaymentList } from '~/pages/payment-list'
 import { PaymentCreate } from '~/pages/payment-create'
 import { PaymentDetail } from '~/pages/payment-detail'
-import { PaymentUpdate } from '~/pages/payment-update/payment-update'
-import { Statistics } from '~/pages/statistics/statistics'
+import { PaymentUpdate } from '~/pages/payment-update'
+import { Statistics } from '~/pages/statistics'
+import { Home } from '~/pages/home'
 
 export const router = createBrowserRouter([
   {
     path: ROUTE.root,
-    element: <div>home</div>,
+    element: <Home />,
   },
   {
     path: ROUTE.payment.list,

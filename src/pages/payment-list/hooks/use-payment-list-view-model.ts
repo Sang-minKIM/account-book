@@ -28,7 +28,6 @@ export const usePaymentListViewModel = () => {
     [data]
   )
 
-  // Map을 배열로 변환합니다.
   const dailyPaymentArray = dailyPaymentMap
     ? Array.from(dailyPaymentMap.entries()).map(([date, payments]) => [dateFormat(date), payments])
     : []
