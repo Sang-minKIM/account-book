@@ -1,5 +1,7 @@
-import { Table, Text } from '@radix-ui/themes'
-import styled from 'styled-components'
+import { Checkbox, Text } from '@radix-ui/themes'
+
+import { Table } from '~/components/table'
+
 import { useAllPaymentsListQuery } from '~/queries/payment'
 import { paymentAmountFormat } from '~/utils/units'
 
@@ -17,54 +19,45 @@ export const PaymentListTable = () => {
   }))
 
   return (
-    <TableWrapper>
-      <Table.Root variant="surface">
-        <Table.Header>
-          <TableRow>
-            <Table.ColumnHeaderCell>금액</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>거래처</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>카테고리</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>거래일시</Table.ColumnHeaderCell>
-            <Table.ColumnHeaderCell>메모</Table.ColumnHeaderCell>
-          </TableRow>
-        </Table.Header>
-        <TableBody>
-          {paymentList?.map(({ id, type, amount, from, to, category, date, memo }) => (
-            <TableRow key={id}>
-              <Table.Cell>
-                <Text weight="medium" color={type === 'expense' ? undefined : 'blue'}>
-                  {paymentAmountFormat(amount, type, 'short')}
-                </Text>
-              </Table.Cell>
-              <Table.Cell>{type === 'expense' ? to : from}</Table.Cell>
-              <Table.Cell>{category}</Table.Cell>
-              <Table.Cell>{date}</Table.Cell>
-              <Table.Cell>{memo}</Table.Cell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table.Root>
-    </TableWrapper>
+    <Table.Root
+      data={paymentList}
+      columns={columns}
+      // enableMultiRowSelection={true}
+      enableSorting={true}
+      enablePagination={true}
+    >
+      <Table.Header />
+      <Table.Body />
+      <Table.Footer />
+    </Table.Root>
   )
 }
 
-const TableWrapper = styled.div`
-  width: 100%;
-  height: 500px;
-`
-
-const TableBody = styled(Table.Body)`
-  display: block;
-  max-height: 400px;
-  overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-`
-const TableRow = styled(Table.Row)`
-  display: table;
-  width: 100%;
-  table-layout: fixed;
-`
+const columns = [
+  {
+    accessorKey: 'amount',
+    header: '금액',
+    cell: ({ row }) => (
+      <Text weight="medium" color={row.original.type === 'expense' ? undefined : 'blue'}>
+        {paymentAmountFormat(row.original.amount, row.original.type, 'short')}
+      </Text>
+    ),
+  },
+  {
+    accessorKey: 'counterpart',
+    header: '거래처',
+    cell: ({ row }) => (row.original.type === 'expense' ? row.original.to : row.original.from),
+  },
+  {
+    accessorKey: 'category',
+    header: '카테고리',
+  },
+  {
+    accessorKey: 'date',
+    header: '거래일시',
+  },
+  {
+    accessorKey: 'memo',
+    header: '메모',
+  },
+]
