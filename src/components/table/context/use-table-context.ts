@@ -3,8 +3,16 @@ import { createContext } from 'react'
 
 import { useContext } from 'react'
 
+type TableContextValue<T> = {
+  table: Table<T>
+  pagination: {
+    pageIndex: number
+    pageSize: number
+  }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TableContext = createContext<Table<any> | null>(null)
+const TableContext = createContext<TableContextValue<any> | null>(null)
 
 // 커스텀 훅으로 테이블 컨텍스트 사용
 const useTableContext = () => {

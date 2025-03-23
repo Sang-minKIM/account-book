@@ -10,7 +10,6 @@ import {
   ColumnDef,
   SortingState,
   RowSelectionState,
-  VisibilityState,
   PaginationState,
 } from '@tanstack/react-table'
 import { TableContext } from './context'
@@ -38,11 +37,14 @@ export const TableRoot = <T,>({
 }: PropsWithChildren<TableRootProps<T>>) => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
-  const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
-  })
+  const [pagination, setPagination] = useState<PaginationState>(
+    enablePagination
+      ? {
+          pageIndex: 0,
+          pageSize: 10,
+        }
+      : { pageIndex: 0, pageSize: data.length }
+  )
 
   const table = useReactTable<T>({
     data,
@@ -50,19 +52,17 @@ export const TableRoot = <T,>({
     state: {
       sorting,
       rowSelection,
-      columnVisibility,
-      pagination: enablePagination ? pagination : undefined,
+      pagination,
     },
     enableRowSelection,
     enableMultiRowSelection,
     enableSorting,
     onSortingChange: setSorting,
     onRowSelectionChange: setRowSelection,
-    onColumnVisibilityChange: setColumnVisibility,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getPaginationRowModel: enablePagination ? getPaginationRowModel() : undefined,
+    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: enableSorting ? getSortedRowModel() : undefined,
     meta: {
       updateData,
@@ -70,7 +70,7 @@ export const TableRoot = <T,>({
   })
 
   return (
-    <TableContext.Provider value={table}>
+    <TableContext.Provider value={{ table, pagination }}>
       <S.TableWrapper>
         <RadixTable.Root variant="surface">{children}</RadixTable.Root>
       </S.TableWrapper>

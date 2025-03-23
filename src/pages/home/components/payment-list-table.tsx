@@ -19,13 +19,7 @@ export const PaymentListTable = () => {
   }))
 
   return (
-    <Table.Root
-      data={paymentList}
-      columns={columns}
-      // enableMultiRowSelection={true}
-      enableSorting={true}
-      enablePagination={true}
-    >
+    <Table.Root data={paymentList} columns={columns} enablePagination>
       <Table.Header />
       <Table.Body />
       <Table.Footer />

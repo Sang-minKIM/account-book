@@ -3,8 +3,7 @@ import { flexRender } from '@tanstack/react-table'
 import { S } from './style'
 import { Table as RadixTable } from '@radix-ui/themes'
 export const TableBody = () => {
-  const table = useTableContext()
-
+  const { table } = useTableContext()
   return (
     <S.TableBody>
       {table.getRowModel().rows.map((row) => (

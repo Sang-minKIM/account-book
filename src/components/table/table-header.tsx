@@ -4,7 +4,7 @@ import { Table as RadixTable } from '@radix-ui/themes'
 import { S } from './style'
 
 export const TableHeader = () => {
-  const table = useTableContext()
+  const { table } = useTableContext()
 
   return (
     <RadixTable.Header>
