@@ -17,7 +17,7 @@ import { S } from './style'
 
 interface TableRootProps<T> {
   data: T[]
-  columns: ColumnDef<T, unknown>[]
+  columns: ColumnDef<T>[]
   enableRowSelection?: boolean
   enableMultiRowSelection?: boolean
   enableSorting?: boolean
