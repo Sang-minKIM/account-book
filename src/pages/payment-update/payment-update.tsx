@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, TrashIcon } from '@radix-ui/react-icons'
 import { Flex, Heading, IconButton } from '@radix-ui/themes'
 
-import { IconLink } from '~/components/icon-link'
+import { IconLink } from '~/components/base'
 import { ROUTE } from '~/router'
 
 import { PaymentForm } from '../payment-create'

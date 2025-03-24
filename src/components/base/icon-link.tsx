@@ -1,6 +1,11 @@
 import { IconButton } from '@radix-ui/themes'
 import { Link } from 'react-router-dom'
-import { IconLinkProps } from './icon-link.type'
+
+interface IconLinkProps {
+  children: React.ReactNode
+  to: string
+  size?: '1' | '2' | '3' | '4'
+}
 
 export const IconLink = ({ children, to, size = '4' }: IconLinkProps) => {
   return (

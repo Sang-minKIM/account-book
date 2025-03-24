@@ -1,2 +1,2 @@
 export * from './error-catcher'
-export * from './icon-link'
+export * from './base/icon-link'
