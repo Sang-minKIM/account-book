@@ -1,1 +1,1 @@
-export * from './use-table-context'
+export * from './table-context'

@@ -14,7 +14,6 @@ type TableContextValue<T> = {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const TableContext = createContext<TableContextValue<any> | null>(null)
 
-// 커스텀 훅으로 테이블 컨텍스트 사용
 const useTableContext = () => {
   const context = useContext(TableContext)
   if (!context) {
