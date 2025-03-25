@@ -11,10 +11,11 @@ type ItemChild =
 interface ItemProps {
   children: ItemChild[]
   className?: string
+  defaultOpen?: boolean
 }
 
-export const AccordionItem = ({ children, className }: ItemProps) => {
-  const [isOpen, setIsOpen] = useState(false)
+export const AccordionItem = ({ children, className, defaultOpen = false }: ItemProps) => {
+  const [isOpen, setIsOpen] = useState(defaultOpen)
 
   return (
     <AccordionItemContext.Provider value={{ isOpen, toggle: () => setIsOpen(!isOpen) }}>

@@ -2,11 +2,19 @@ import { ChevronRightIcon } from '@radix-ui/react-icons'
 import { useAccordionItemContext } from './context'
 import styled from 'styled-components'
 
-export const AccordionIcon = () => {
+export const AccordionIcon = ({
+  className,
+  width = '16px',
+  height = '16px',
+}: {
+  className?: string
+  width?: string
+  height?: string
+}) => {
   const { isOpen } = useAccordionItemContext()
   return (
     <Arrow $isOpen={isOpen}>
-      <ChevronRightIcon width="12px" height="12px" />
+      <ChevronRightIcon width={width} height={height} className={className} />
     </Arrow>
   )
 }
