@@ -6,9 +6,9 @@ import styled from 'styled-components'
 import { getDayOfFirstDayInMonth, getLastDayOfMonth } from './services/calender'
 import { ACTION_TYPE, DAY_TITLES } from './calender.model'
 import { CalenderProps } from './calender.type'
-import { paymentAmountFormat } from '~/utils/units'
+import { transactionAmountFormat } from '~/utils/units'
 
-export function Calender({ year, month, day, dispatch, getDailyPayment, onDateChange }: CalenderProps) {
+export function Calender({ year, month, day, dispatch, getDailyTransaction, onDateChange }: CalenderProps) {
   return (
     <Container direction="column" width="100%" height="fit-content">
       <Flex justify="center" mb="2" align="center" py="2" gap="2">
@@ -46,8 +46,8 @@ export function Calender({ year, month, day, dispatch, getDailyPayment, onDateCh
         {times(getLastDayOfMonth(year, month), (index) => {
           const selected = index === day - 1
           const date = index + 1
-          const expense = getDailyPayment({ type: 'expense', year, month: month + 1, day: date })
-          const income = getDailyPayment({ type: 'income', year, month: month + 1, day: date })
+          const expense = getDailyTransaction({ type: 'expense', year, month: month + 1, day: date })
+          const income = getDailyTransaction({ type: 'income', year, month: month + 1, day: date })
           return (
             <DayButton
               radius="large"
@@ -60,10 +60,10 @@ export function Calender({ year, month, day, dispatch, getDailyPayment, onDateCh
               {date}
               <Flex direction="column" align="center" justify="center">
                 <Text size="1" color="blue">
-                  {income > 0 && paymentAmountFormat(income, 'income', 'short')}
+                  {income > 0 && transactionAmountFormat(income, 'income', 'short')}
                 </Text>
                 <Text size="1" color="red">
-                  {expense > 0 && paymentAmountFormat(expense, 'expense', 'short')}
+                  {expense > 0 && transactionAmountFormat(expense, 'expense', 'short')}
                 </Text>
               </Flex>
             </DayButton>

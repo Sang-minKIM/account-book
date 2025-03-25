@@ -20,11 +20,11 @@ export const ROUTE = {
   category: {
     root: '/category',
   },
-  payment: {
-    list: '/payments',
-    detail: (id: string) => `/payments/${id}`,
-    create: '/payments/create',
-    update: (id: string) => `/payments/update/${id}`,
+  transaction: {
+    list: '/transactions',
+    detail: (id: string) => `/transactions/${id}`,
+    create: '/transactions/create',
+    update: (id: string) => `/transactions/update/${id}`,
   },
   statistics: '/statistics',
 }

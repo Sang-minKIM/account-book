@@ -2,10 +2,10 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import { ROUTE } from './route.model'
 import { MainLayout } from '~/layout'
-import { PaymentList } from '~/pages/payment-list'
-import { PaymentCreate } from '~/pages/payment-create'
-import { PaymentDetail } from '~/pages/payment-detail'
-import { PaymentUpdate } from '~/pages/payment-update'
+import { TransactionList } from '~/pages/transaction-list'
+import { TransactionCreate } from '~/pages/transaction-create'
+import { TransactionDetail } from '~/pages/transaction-detail'
+import { TransactionUpdate } from '~/pages/transaction-update'
 import { Statistics } from '~/pages/statistics'
 import { Home } from '~/pages/transaction'
 
@@ -18,20 +18,20 @@ export const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: ROUTE.payment.list,
-        element: <PaymentList />,
+        path: ROUTE.transaction.list,
+        element: <TransactionList />,
       },
       {
-        path: ROUTE.payment.create,
-        element: <PaymentCreate />,
+        path: ROUTE.transaction.create,
+        element: <TransactionCreate />,
       },
       {
-        path: ROUTE.payment.detail(':id'),
-        element: <PaymentDetail />,
+        path: ROUTE.transaction.detail(':id'),
+        element: <TransactionDetail />,
       },
       {
-        path: ROUTE.payment.update(':id'),
-        element: <PaymentUpdate />,
+        path: ROUTE.transaction.update(':id'),
+        element: <TransactionUpdate />,
       },
       {
         path: '/statistics',

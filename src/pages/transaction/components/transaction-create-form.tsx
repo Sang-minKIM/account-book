@@ -3,12 +3,12 @@ import { ELEMENT_SIZE } from '~/constants/style'
 import { WON_UNIT } from '~/constants/unit'
 import { commaNumber, parseCommaNumber } from '~/utils/number-format'
 import { useTransactionCreateFormViewModel } from '../hooks/use-transaction-create-form-view-model'
-import { MAX_MEMO_LENGTH } from '~/constants/payment'
+import { MAX_MEMO_LENGTH } from '~/constants/transaction'
 import { Label } from '~/components/base'
 
 export const TransactionCreateForm = () => {
-  const { payment, dispatch, categoryList, handleSubmit, handleKeyDown } = useTransactionCreateFormViewModel()
-  const { type, amount, payee, date, memo } = payment
+  const { transaction, dispatch, categoryList, handleSubmit, handleKeyDown } = useTransactionCreateFormViewModel()
+  const { type, amount, payee, date, memo } = transaction
 
   const displayAmount = amount === 0 ? '' : commaNumber(amount)
 

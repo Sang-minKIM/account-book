@@ -1,48 +1,48 @@
 import { styled } from 'styled-components'
 import { DonutChart } from './components/donut-chart'
 import { Flex, Section, Text } from '@radix-ui/themes'
-import { paymentAmountFormat } from '~/utils/units'
-import { Payment, usePaymentsListQuery } from '~/queries/payment'
+import { transactionAmountFormat } from '~/utils/units'
+import { Transaction, useTransactionsListQuery } from '~/queries/transaction'
 import { toNumber } from '~/utils/number'
 import { SORT_ORDER } from '~/constants/query'
 import { useMemo } from 'react'
-import { DailyPaymentList } from '../payment-list/components/daily-payment-list'
+import { DailyTransactionList } from '../transaction-list/components/daily-transaction-list'
 
 export const Statistics = () => {
   const date = new Date()
   const { year, month } = { year: date.getFullYear(), month: date.getMonth() }
-  const { data } = usePaymentsListQuery(toNumber(year), toNumber(month) + 1, SORT_ORDER.DESC)
+  const { data } = useTransactionsListQuery(toNumber(year), toNumber(month) + 1, SORT_ORDER.DESC)
 
-  const categoryPaymentMap = useMemo(
+  const categoryTransactionMap = useMemo(
     () =>
-      data?.reduce<Map<string, Payment[]>>((map, payment) => {
-        const category = payment.category.name
+      data?.reduce<Map<string, Transaction[]>>((map, transaction) => {
+        const category = transaction.category.name
         if (!map.has(category)) {
           map.set(category, [])
         }
-        map.get(category)!.push(payment)
+        map.get(category)!.push(transaction)
         return map
-      }, new Map<string, Payment[]>()),
+      }, new Map<string, Transaction[]>()),
     [data]
   )
 
-  const categoryPaymentList = useMemo(() => Array.from(categoryPaymentMap.entries()), [categoryPaymentMap])
+  const categoryTransactionList = useMemo(() => Array.from(categoryTransactionMap.entries()), [categoryTransactionMap])
 
-  const categoryTotalPayment = useMemo(() => {
-    return Array.from(categoryPaymentMap.entries()).map(([category, payments]) => {
-      const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0)
+  const categoryTotalTransaction = useMemo(() => {
+    return Array.from(categoryTransactionMap.entries()).map(([category, transactions]) => {
+      const totalAmount = transactions.reduce((sum, transaction) => sum + transaction.amount, 0)
       return { label: category, amount: totalAmount }
     })
-  }, [categoryPaymentMap])
-  categoryTotalPayment.sort((a, b) => b.amount - a.amount)
+  }, [categoryTransactionMap])
+  categoryTotalTransaction.sort((a, b) => b.amount - a.amount)
 
-  const total = categoryTotalPayment.reduce((result, value) => result + value.amount, 0)
+  const total = categoryTotalTransaction.reduce((result, value) => result + value.amount, 0)
   return (
     <Flex justify="between" gap="9" height="calc(100dvh - 50px)">
       <Flex width="50%" minWidth="300px" direction="column" align="center" gap="6">
-        <DonutChart data={categoryTotalPayment} />
+        <DonutChart data={categoryTotalTransaction} />
         <Flex direction="column" gap="2">
-          {categoryTotalPayment.map((item, index) => (
+          {categoryTotalTransaction.map((item, index) => (
             <Legend
               key={item.label}
               label={item.label}
@@ -54,7 +54,7 @@ export const Statistics = () => {
         </Flex>
       </Flex>
       <Section width="50%" minWidth="300px">
-        <DailyPaymentList dailyPaymentList={categoryPaymentList} />
+        <DailyTransactionList dailyTransactionList={categoryTransactionList} />
       </Section>
     </Flex>
   )
@@ -74,7 +74,7 @@ const Legend = ({ label, color, ratio, amount }: { label: string; color: string;
         </Text>
       </Flex>
       <Text weight="medium" ml="auto">
-        {paymentAmountFormat(amount, 'expense', 'full')}
+        {transactionAmountFormat(amount, 'expense', 'full')}
       </Text>
     </Flex>
   )
