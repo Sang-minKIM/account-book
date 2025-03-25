@@ -8,7 +8,7 @@ import { paymentCreateSchema } from '~/queries/payment/payment.type'
 
 type Payment = z.infer<typeof paymentCreateSchema>
 
-export const usePaymentCreateFormViewModel = () => {
+export const useTransactionCreateFormViewModel = () => {
   const [payment, dispatch] = useReducer(reducer, initialState)
 
   const { data: categoryList } = useCategoryListQuery(SORT_ORDER.ASC)

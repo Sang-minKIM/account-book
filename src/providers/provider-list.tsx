@@ -8,7 +8,7 @@ import { GlobalSuspenseBoundary } from './global-suspense-boundary'
 
 export const ProviderList = ({ children }: StrictPropsWithChildren) => {
   return (
-    <Theme appearance="light" accentColor="blue" radius="large" scaling="100%">
+    <Theme appearance="light" accentColor="blue" grayColor="gray" radius="large" scaling="100%" hasBackground>
       <GlobalSuspenseBoundary>
         <QueryProvider>
           <ErrorCatcher />

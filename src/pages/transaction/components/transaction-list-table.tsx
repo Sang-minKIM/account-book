@@ -6,7 +6,7 @@ import { Table } from '~/components/table'
 import { Payment, useAllPaymentsListQuery } from '~/queries/payment'
 import { paymentAmountFormat } from '~/utils/units'
 
-export const PaymentListTable = () => {
+export const TransactionListTable = () => {
   const { data } = useAllPaymentsListQuery()
 
   return (
