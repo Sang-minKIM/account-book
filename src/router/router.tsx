@@ -7,7 +7,7 @@ import { TransactionCreate } from '~/pages/transaction-create'
 import { TransactionDetail } from '~/pages/transaction-detail'
 import { TransactionUpdate } from '~/pages/transaction-update'
 import { Statistics } from '~/pages/statistics'
-import { Home } from '~/pages/transaction'
+import { Transactions } from '~/pages/transactions'
 
 export const router = createBrowserRouter([
   {
@@ -15,22 +15,23 @@ export const router = createBrowserRouter([
     children: [
       {
         path: ROUTE.transactions.root,
-        element: <Home />,
+        element: <Transactions />,
       },
+      // FIXME: 캘린더 페이지로 이름 변경 예정
       {
-        path: ROUTE.transaction.list,
+        path: ROUTE.calendar.root,
         element: <TransactionList />,
       },
       {
-        path: ROUTE.transaction.create,
+        path: ROUTE.calendar.create,
         element: <TransactionCreate />,
       },
       {
-        path: ROUTE.transaction.detail(':id'),
+        path: ROUTE.calendar.detail(':id'),
         element: <TransactionDetail />,
       },
       {
-        path: ROUTE.transaction.update(':id'),
+        path: ROUTE.calendar.update(':id'),
         element: <TransactionUpdate />,
       },
       {

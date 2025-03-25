@@ -16,15 +16,12 @@ export const ROUTE = {
   },
   calendar: {
     root: '/calendar',
+    detail: (id: string) => `/calendar/${id}`,
+    create: '/calendar/create',
+    update: (id: string) => `/calendar/update/${id}`,
   },
   category: {
     root: '/category',
-  },
-  transaction: {
-    list: '/transactions',
-    detail: (id: string) => `/transactions/${id}`,
-    create: '/transactions/create',
-    update: (id: string) => `/transactions/update/${id}`,
   },
   statistics: '/statistics',
 }
