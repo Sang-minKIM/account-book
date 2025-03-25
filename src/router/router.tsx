@@ -1,37 +1,43 @@
 import { createBrowserRouter } from 'react-router-dom'
 
 import { ROUTE } from './route.model'
-
-import { PaymentList } from '~/pages/payment-list'
-import { PaymentCreate } from '~/pages/payment-create'
-import { PaymentDetail } from '~/pages/payment-detail'
-import { PaymentUpdate } from '~/pages/payment-update'
+import { MainLayout } from '~/layout'
+import { TransactionList } from '~/pages/transaction-list'
+import { TransactionCreate } from '~/pages/transaction-create'
+import { TransactionDetail } from '~/pages/transaction-detail'
+import { TransactionUpdate } from '~/pages/transaction-update'
 import { Statistics } from '~/pages/statistics'
-import { Home } from '~/pages/home'
+import { Transactions } from '~/pages/transactions'
 
 export const router = createBrowserRouter([
   {
-    path: ROUTE.root,
-    element: <Home />,
-  },
-  {
-    path: ROUTE.payment.list,
-    element: <PaymentList />,
-  },
-  {
-    path: ROUTE.payment.create,
-    element: <PaymentCreate />,
-  },
-  {
-    path: ROUTE.payment.detail(':id'),
-    element: <PaymentDetail />,
-  },
-  {
-    path: ROUTE.payment.update(':id'),
-    element: <PaymentUpdate />,
-  },
-  {
-    path: ROUTE.statistics,
-    element: <Statistics />,
+    element: <MainLayout />,
+    children: [
+      {
+        path: ROUTE.transactions.root,
+        element: <Transactions />,
+      },
+      // FIXME: 캘린더 페이지로 이름 변경 예정
+      {
+        path: ROUTE.calendar.root,
+        element: <TransactionList />,
+      },
+      {
+        path: ROUTE.calendar.create,
+        element: <TransactionCreate />,
+      },
+      {
+        path: ROUTE.calendar.detail(':id'),
+        element: <TransactionDetail />,
+      },
+      {
+        path: ROUTE.calendar.update(':id'),
+        element: <TransactionUpdate />,
+      },
+      {
+        path: '/statistics',
+        element: <Statistics />,
+      },
+    ],
   },
 ])
