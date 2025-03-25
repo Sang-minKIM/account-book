@@ -38,6 +38,6 @@ const TabButton = styled.button<{ width: string; height: string }>`
   align-items: center;
 
   &:hover {
-    background-color: #f5f5f5;
+    background-color: var(--accent-7);
   }
 `
