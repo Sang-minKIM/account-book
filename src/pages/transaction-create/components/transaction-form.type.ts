@@ -1,5 +1,5 @@
 import { Dispatch } from 'react'
-import { RequiredInfo, OptionalInfo } from '~/queries/transaction/transaction.type'
+import { RequiredInfo, OptionalInfo } from '~/queries/transactions/transactions.type'
 
 type ActionType<T> = {
   [K in keyof T]: { type: `SET_${Uppercase<string & K>}`; payload: T[K] }

@@ -1,4 +1,4 @@
-import { RequiredInfo } from '~/queries/transaction'
+import { RequiredInfo } from '~/queries/transactions'
 import { ACTION_TYPE } from './calender.model'
 import { Dispatch } from 'react'
 

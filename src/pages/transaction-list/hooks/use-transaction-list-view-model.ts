@@ -3,7 +3,7 @@ import { DateState } from '~/components/calender/calender.type'
 import { useCalender } from '~/components/calender/hooks/use-calender'
 import { SORT_ORDER } from '~/constants/query'
 
-import { Transaction, RequiredInfo, useTransactionsListQuery } from '~/queries/transaction'
+import { Transaction, RequiredInfo, useTransactionsListQuery } from '~/queries/transactions'
 import { toNumber } from '~/utils/number'
 import { getSumOfTransactions } from '../services/getSumOfTransactions'
 import { dateFormat } from '~/utils/date'

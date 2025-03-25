@@ -1,6 +1,6 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { Flex, IconButton, Text } from '@radix-ui/themes'
-import { Transaction } from '~/queries/transaction'
+import { Transaction } from '~/queries/transactions'
 import { transactionAmountFormat } from '~/utils/units'
 import { ROUTE } from '~/router'
 import { useNavigate } from 'react-router-dom'

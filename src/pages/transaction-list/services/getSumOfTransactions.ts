@@ -1,4 +1,4 @@
-import { Transaction, RequiredInfo } from '~/queries/transaction'
+import { Transaction, RequiredInfo } from '~/queries/transactions'
 
 export const getSumOfTransactions = (type: RequiredInfo['type'], transactions: Transaction[]) => {
   return transactions.reduce((sum, transaction) => {

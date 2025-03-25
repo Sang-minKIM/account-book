@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { Table } from '~/components/table'
 
-import { Transaction, useAllTransactionsListQuery } from '~/queries/transaction'
+import { Transaction, useAllTransactionsListQuery } from '~/queries/transactions'
 import { transactionAmountFormat } from '~/utils/units'
 
 export const TransactionListTable = () => {

@@ -1,8 +1,8 @@
 import { useReducer } from 'react'
-import { useTransactionDeleteMutation, useTransactionUpdateMutation } from '~/queries/transaction/transaction.api'
+import { useTransactionDeleteMutation, useTransactionUpdateMutation } from '~/queries/transactions/transactions.api'
 import { useNavigate } from 'react-router-dom'
-import { useTransactionDetailQuery } from '~/queries/transaction/transaction.api'
-import { transactionFormSchema } from '~/queries/transaction/transaction.type'
+import { useTransactionDetailQuery } from '~/queries/transactions/transactions.api'
+import { transactionFormSchema } from '~/queries/transactions/transactions.type'
 import { ROUTE } from '~/router'
 import { requiredInfoReducer, optionalInfoReducer } from '~/pages/transaction-create'
 

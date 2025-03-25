@@ -23,7 +23,7 @@ export const TransactionList = () => {
   return (
     <Container>
       <Flex height="50px" align="center" justify="end" p="2">
-        <IconLink to={ROUTE.transaction.create}>
+        <IconLink to={ROUTE.calendar.create}>
           <Pencil1Icon width="22" height="22" />
         </IconLink>
       </Flex>

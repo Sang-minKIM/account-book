@@ -1,4 +1,4 @@
-import { useTransactionDetailQuery } from '~/queries/transaction/transaction.api'
+import { useTransactionDetailQuery } from '~/queries/transactions/transactions.api'
 
 export const useTransactionDetailViewModel = (transactionId: string) => {
   const {

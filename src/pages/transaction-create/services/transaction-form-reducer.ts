@@ -1,4 +1,4 @@
-import { RequiredInfo, OptionalInfo } from '~/queries/transaction/transaction.type'
+import { RequiredInfo, OptionalInfo } from '~/queries/transactions/transactions.type'
 import { OptionalInfoAction, RequiredInfoAction } from '../components/transaction-form.type'
 
 export function requiredInfoReducer(state: RequiredInfo, action: RequiredInfoAction) {

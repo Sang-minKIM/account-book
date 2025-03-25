@@ -3,8 +3,8 @@ import { z } from 'zod'
 import { MAX_MEMO_LENGTH, TRANSACTION_TYPE } from '~/constants/transaction'
 import { SORT_ORDER } from '~/constants/query'
 import { useCategoryListQuery } from '~/queries/category'
-import { useAllTransactionsListQuery, useTransactionCreateMutation } from '~/queries/transaction'
-import { transactionCreateSchema } from '~/queries/transaction/transaction.type'
+import { useAllTransactionsListQuery, useTransactionCreateMutation } from '~/queries/transactions'
+import { transactionCreateSchema } from '~/queries/transactions/transactions.type'
 
 type Transaction = z.infer<typeof transactionCreateSchema>
 

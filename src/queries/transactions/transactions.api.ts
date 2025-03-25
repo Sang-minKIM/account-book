@@ -1,7 +1,7 @@
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 
-import { TRANSACTIONS_ENDPOINT, TRANSACTIONS_KEY } from './transaction.model'
-import { Transaction, TransactionMutationPayload } from './transaction.type'
+import { TRANSACTIONS_ENDPOINT, TRANSACTIONS_KEY } from './transactions.model'
+import { Transaction, TransactionMutationPayload } from './transactions.type'
 import { request } from '~/utils/request'
 import { SortOrder } from '~/types/query.type'
 

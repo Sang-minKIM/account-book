@@ -1,6 +1,6 @@
 import { useReducer } from 'react'
-import { transactionFormSchema } from '~/queries/transaction/transaction.type'
-import { useTransactionCreateMutation } from '~/queries/transaction'
+import { transactionFormSchema } from '~/queries/transactions/transactions.type'
+import { useTransactionCreateMutation } from '~/queries/transactions'
 import { useNavigate } from 'react-router-dom'
 import { ROUTE } from '~/router'
 import { optionalInfoReducer, requiredInfoReducer } from '../services/transaction-form-reducer'
