@@ -74,7 +74,7 @@ const Legend = ({ label, color, ratio, amount }: { label: string; color: string;
         </Text>
       </Flex>
       <Text weight="medium" ml="auto">
-        {transactionAmountFormat(amount, 'expense', 'full')}
+        {transactionAmountFormat({ amount, type: 'expense', mode: 'full' })}
       </Text>
     </Flex>
   )

@@ -31,7 +31,7 @@ const columns: ColumnDef<Transaction>[] = [
       <Table.EditableCell
         renderReadOnly={({ startEdit }) => (
           <Text weight="medium" color={row.original.type === 'expense' ? undefined : 'blue'} onDoubleClick={startEdit}>
-            {transactionAmountFormat(row.original.amount, row.original.type, 'short')}
+            {transactionAmountFormat({ amount: row.original.amount, type: row.original.type, mode: 'full' })}
           </Text>
         )}
         renderEditable={({ endEdit }) => (
@@ -45,7 +45,7 @@ const columns: ColumnDef<Transaction>[] = [
     ),
   },
   {
-    accessorKey: 'counterpart',
+    accessorKey: 'payee',
     header: '거래처',
     cell: ({ row }) => (row.original.type === 'expense' ? row.original.to : row.original.from),
   },
