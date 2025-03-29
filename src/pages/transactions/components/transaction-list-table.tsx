@@ -5,6 +5,7 @@ import { Table } from '~/components/table'
 
 import { Transaction, useAllTransactionsListQuery } from '~/queries/transactions'
 import { transactionAmountFormat } from '~/utils/units'
+import { TransactionListTableAmountCellEditable } from './transaction-list-table-amount-cell-editable'
 
 export const TransactionListTable = () => {
   const { data } = useAllTransactionsListQuery()
@@ -27,9 +28,20 @@ const columns: ColumnDef<Transaction>[] = [
     accessorKey: 'amount',
     header: '금액',
     cell: ({ row }) => (
-      <Text weight="medium" color={row.original.type === 'expense' ? undefined : 'blue'}>
-        {transactionAmountFormat(row.original.amount, row.original.type, 'short')}
-      </Text>
+      <Table.EditableCell
+        renderReadOnly={({ startEdit }) => (
+          <Text weight="medium" color={row.original.type === 'expense' ? undefined : 'blue'} onDoubleClick={startEdit}>
+            {transactionAmountFormat(row.original.amount, row.original.type, 'short')}
+          </Text>
+        )}
+        renderEditable={({ endEdit }) => (
+          <TransactionListTableAmountCellEditable
+            id={row.original.id}
+            defaultValue={row.original.amount}
+            endEdit={endEdit}
+          />
+        )}
+      />
     ),
   },
   {
