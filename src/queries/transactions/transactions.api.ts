@@ -1,7 +1,7 @@
 import { MutationOptions, useMutation, useSuspenseQuery } from '@tanstack/react-query'
 
 import { TRANSACTIONS_ENDPOINT, TRANSACTIONS_KEY } from './transactions.model'
-import { Transaction, transactionCreateSchema, transactionUpdateSchema } from './transactions.type'
+import { Transaction, TransactionCreateSchema, TransactionUpdateSchema } from './transactions.type'
 import { request } from '~/utils/request'
 import { SortOrder } from '~/types/query.type'
 import { z } from 'zod'
@@ -28,7 +28,7 @@ export const useTransactionDetailQuery = (transactionId: string) =>
     queryFn: () => request(TRANSACTIONS_ENDPOINT.detail(transactionId)),
   })
 
-type TransactionCreatePayload = z.infer<typeof transactionCreateSchema>
+type TransactionCreatePayload = z.infer<typeof TransactionCreateSchema>
 export const useTransactionCreateMutation = () => {
   return useMutation<void, Error, TransactionCreatePayload>({
     mutationFn: (data) =>
@@ -39,7 +39,7 @@ export const useTransactionCreateMutation = () => {
   })
 }
 
-type TransactionUpdatePayload = { id: string; data: z.infer<typeof transactionUpdateSchema> }
+type TransactionUpdatePayload = { id: string; data: z.infer<typeof TransactionUpdateSchema> }
 export const useTransactionUpdateMutation = (options?: MutationOptions<void, Error, TransactionUpdatePayload>) => {
   return useMutation<void, Error, TransactionUpdatePayload>({
     mutationFn: (payload) => request(TRANSACTIONS_ENDPOINT.update(payload.id), { method: 'PATCH', data: payload.data }),
