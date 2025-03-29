@@ -1,4 +1,4 @@
-import { Button, Flex, SegmentedControl, Select, Text, TextArea, TextField, Grid, Card } from '@radix-ui/themes'
+import { Button, Flex, SegmentedControl, Select, Text, TextArea, TextField, Grid, Card, Box } from '@radix-ui/themes'
 import { ELEMENT_SIZE } from '~/constants/style'
 import { WON_UNIT } from '~/constants/unit'
 import { commaNumber, parseCommaNumber } from '~/utils/number-format'
@@ -43,6 +43,7 @@ export const TransactionCreateForm = () => {
               </Button>
             </Flex>
           </Flex>
+          <Box p="2" />
           <Grid columns="5" gap="4">
             <Flex direction="column" gap="2">
               <Label>금액</Label>
@@ -65,7 +66,7 @@ export const TransactionCreateForm = () => {
             </Flex>
 
             <Flex direction="column" gap="2">
-              <Label>지출처</Label>
+              <Label>{type === 'expense' ? '지출처' : '수입처'}</Label>
               <TextField.Root
                 type="text"
                 placeholder={payeePlaceholder}
