@@ -6,6 +6,7 @@ import { Table } from '~/components/table'
 import { Transaction, useAllTransactionsListQuery } from '~/queries/transactions'
 import { transactionAmountFormat } from '~/utils/units'
 import { TransactionListTableAmountCellEditable } from './transaction-list-table-amount-cell-editable'
+import { TransactionListTablePayeeCellEditable } from './transaction-list-table-payee-cell-editable'
 
 export const TransactionListTable = () => {
   const { data } = useAllTransactionsListQuery()
@@ -47,7 +48,21 @@ const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: 'payee',
     header: '거래처',
-    cell: ({ row }) => (row.original.type === 'expense' ? row.original.to : row.original.from),
+    cell: ({ row }) => (
+      <Table.EditableCell
+        renderReadOnly={({ startEdit }) => (
+          <Text onDoubleClick={startEdit}>{row.original.type === 'expense' ? row.original.to : row.original.from}</Text>
+        )}
+        renderEditable={({ endEdit }) => (
+          <TransactionListTablePayeeCellEditable
+            id={row.original.id}
+            defaultValue={row.original.type === 'expense' ? row.original.to : row.original.from}
+            type={row.original.type}
+            endEdit={endEdit}
+          />
+        )}
+      />
+    ),
   },
   {
     accessorKey: 'category',
