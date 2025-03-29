@@ -42,12 +42,15 @@ export type OptionalInfo = z.infer<typeof optionalInfoSchema>
 type TransactionBaseType = Omit<RequiredInfo, 'payee'> & OptionalInfo
 
 export interface TransactionMutationPayload extends TransactionBaseType {
-  from?: string
-  to?: string
+  id: string
+  data: {
+    from?: string
+    to?: string
+  }
 }
 
 // FIXME: 스키마 타입 단순화 필요. 위의 타입들 추후 없애기
-// 기본적으로 상태로 다룰 타입을 스키마로 정의하고 실제 요청 타입은 스키마를 확장하여 정의 => 그래야 유효성 검사 쉬워짐
+// 기본적으로 요청에 보낼 타입을 스키마로 정의하고 각 컴포넌트의 상태는 infer로 다루기. 유효성 검사할 때는 요청 타입에 맞게 변환 필요
 export const transactionCreateSchema = z.object({
   type: z.enum([TRANSACTION_TYPE.INCOME, TRANSACTION_TYPE.EXPENSE]),
   amount: z.number().positive().max(1000000000, '너무 큰 금액입니다.').min(1, '최소 1원 이상 입력해주세요'),
@@ -55,4 +58,16 @@ export const transactionCreateSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}/, '올바른 날짜를 입력해주세요'),
   category: z.number().min(1),
   memo: z.string().max(60, '최대 60자까지 입력 가능합니다.'),
+})
+
+export const transactionUpdateSchema = z.object({
+  type: z.enum([TRANSACTION_TYPE.INCOME, TRANSACTION_TYPE.EXPENSE]).optional(),
+  amount: z.number().max(1000000000, '너무 큰 금액입니다.').min(1, '최소 1원 이상 입력해주세요').optional(),
+  payee: z.string().optional(),
+  date: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}/, '올바른 날짜를 입력해주세요')
+    .optional(),
+  category: z.number().min(1).optional(),
+  memo: z.string().max(60, '최대 60자까지 입력 가능합니다.').optional(),
 })
