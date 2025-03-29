@@ -1,9 +1,10 @@
-import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
+import { MutationOptions, useMutation, useSuspenseQuery } from '@tanstack/react-query'
 
 import { TRANSACTIONS_ENDPOINT, TRANSACTIONS_KEY } from './transactions.model'
-import { Transaction, TransactionMutationPayload } from './transactions.type'
+import { Transaction, transactionCreateSchema, transactionUpdateSchema } from './transactions.type'
 import { request } from '~/utils/request'
 import { SortOrder } from '~/types/query.type'
+import { z } from 'zod'
 
 export const useTransactionsListQuery = (
   year: number,
@@ -27,25 +28,27 @@ export const useTransactionDetailQuery = (transactionId: string) =>
     queryFn: () => request(TRANSACTIONS_ENDPOINT.detail(transactionId)),
   })
 
+type TransactionCreatePayload = z.infer<typeof transactionCreateSchema>
 export const useTransactionCreateMutation = () => {
-  return useMutation<void, Error, TransactionMutationPayload>({
+  return useMutation<void, Error, TransactionCreatePayload>({
     mutationFn: (data) =>
       request(TRANSACTIONS_ENDPOINT.default, {
         method: 'POST',
-        data: JSON.stringify(data),
+        data,
       }),
   })
 }
 
-export const useTransactionUpdateMutation = (transactionId: string) => {
-  return useMutation<void, Error, TransactionMutationPayload>({
-    mutationFn: (data) =>
-      request(TRANSACTIONS_ENDPOINT.update(transactionId), { method: 'PATCH', data: JSON.stringify(data) }),
+type TransactionUpdatePayload = { id: string; data: z.infer<typeof transactionUpdateSchema> }
+export const useTransactionUpdateMutation = (options?: MutationOptions<void, Error, TransactionUpdatePayload>) => {
+  return useMutation<void, Error, TransactionUpdatePayload>({
+    mutationFn: (payload) => request(TRANSACTIONS_ENDPOINT.update(payload.id), { method: 'PATCH', data: payload.data }),
+    ...options,
   })
 }
 
-export const useTransactionDeleteMutation = (transactionId: string) => {
-  return useMutation<void>({
-    mutationFn: () => request(TRANSACTIONS_ENDPOINT.update(transactionId), { method: 'DELETE' }),
+export const useTransactionDeleteMutation = () => {
+  return useMutation<void, Error, string>({
+    mutationFn: (transactionId) => request(TRANSACTIONS_ENDPOINT.update(transactionId), { method: 'DELETE' }),
   })
 }
