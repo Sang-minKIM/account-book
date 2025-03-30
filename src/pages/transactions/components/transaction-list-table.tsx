@@ -1,4 +1,4 @@
-import { Flex, Text } from '@radix-ui/themes'
+import { Box, Flex, Text } from '@radix-ui/themes'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { Table } from '~/components/table'
@@ -7,6 +7,7 @@ import { Transaction, useAllTransactionsListQuery } from '~/queries/transactions
 import { transactionAmountFormat } from '~/utils/units'
 import { TransactionListTableAmountCellEditable } from './transaction-list-table-amount-cell-editable'
 import { TransactionListTablePayeeCellEditable } from './transaction-list-table-payee-cell-editable'
+import { TransactionListTableCategoryCellEditable } from './transaction-list-table-category-cell-editable'
 
 export const TransactionListTable = () => {
   const { data } = useAllTransactionsListQuery()
@@ -51,7 +52,9 @@ const columns: ColumnDef<Transaction>[] = [
     cell: ({ row }) => (
       <Table.EditableCell
         renderReadOnly={({ startEdit }) => (
-          <Text onDoubleClick={startEdit}>{row.original.type === 'expense' ? row.original.to : row.original.from}</Text>
+          <Box width="100%" height="100%" onDoubleClick={startEdit}>
+            <Text>{row.original.type === 'expense' ? row.original.to : row.original.from}</Text>
+          </Box>
         )}
         renderEditable={({ endEdit }) => (
           <TransactionListTablePayeeCellEditable
@@ -68,6 +71,18 @@ const columns: ColumnDef<Transaction>[] = [
     accessorKey: 'category',
     accessorFn: (row) => row.category.name,
     header: '카테고리',
+    cell: ({ row }) => (
+      <Table.EditableCell
+        renderReadOnly={({ startEdit }) => <Text onDoubleClick={startEdit}>{row.original.category.name}</Text>}
+        renderEditable={({ endEdit }) => (
+          <TransactionListTableCategoryCellEditable
+            id={row.original.id}
+            defaultValue={Number(row.original.category.id)}
+            endEdit={endEdit}
+          />
+        )}
+      />
+    ),
   },
   {
     accessorKey: 'date',
