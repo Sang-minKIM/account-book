@@ -13,8 +13,9 @@ export const useTransactionsListQuery = (
 ) =>
   useSuspenseQuery<Transaction[]>({
     queryKey: TRANSACTIONS_KEY.list(year, month, sortOrder),
-    queryFn: () => request(TRANSACTIONS_ENDPOINT.list(year, month, sortOrder)),
+    queryFn: () => request(TRANSACTIONS_ENDPOINT.list(year, month, sortOrder, 'expense')),
   })
+
 export const useAllTransactionsListQuery = () =>
   // TODO: useTransactionsListQuery 리팩토링 후 삭제
   useSuspenseQuery<Transaction[]>({
@@ -29,6 +30,7 @@ export const useTransactionDetailQuery = (transactionId: string) =>
   })
 
 type TransactionCreatePayload = z.infer<typeof TransactionCreateSchema>
+
 export const useTransactionCreateMutation = () => {
   return useMutation<void, Error, TransactionCreatePayload>({
     mutationFn: (data) =>
@@ -40,6 +42,7 @@ export const useTransactionCreateMutation = () => {
 }
 
 type TransactionUpdatePayload = { id: string; data: z.infer<typeof TransactionUpdateSchema> }
+
 export const useTransactionUpdateMutation = (options?: MutationOptions<void, Error, TransactionUpdatePayload>) => {
   return useMutation<void, Error, TransactionUpdatePayload>({
     mutationFn: (payload) => request(TRANSACTIONS_ENDPOINT.update(payload.id), { method: 'PATCH', data: payload.data }),
