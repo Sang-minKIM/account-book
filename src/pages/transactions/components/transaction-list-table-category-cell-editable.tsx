@@ -33,7 +33,7 @@ export const TransactionListTableCategoryCellEditable = ({
     setCategory(Number(value))
     updateTransaction({
       id,
-      data: { category: category },
+      data: { category: Number(value) },
     })
     endEdit()
   }
