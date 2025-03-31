@@ -8,6 +8,7 @@ import { transactionAmountFormat } from '~/utils/units'
 import { TransactionListTableAmountCellEditable } from './transaction-list-table-amount-cell-editable'
 import { TransactionListTablePayeeCellEditable } from './transaction-list-table-payee-cell-editable'
 import { TransactionListTableCategoryCellEditable } from './transaction-list-table-category-cell-editable'
+import { TransactionListTableMemoCellEditable } from './transaction-list-table-memo-cell-editable'
 
 export const TransactionListTable = () => {
   const { data } = useAllTransactionsListQuery()
@@ -96,5 +97,17 @@ const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: 'memo',
     header: '메모',
+    cell: ({ row }) => (
+      <Table.EditableCell
+        renderReadOnly={({ startEdit }) => <Text onDoubleClick={startEdit}>{row.original.memo}</Text>}
+        renderEditable={({ endEdit }) => (
+          <TransactionListTableMemoCellEditable
+            id={row.original.id}
+            defaultValue={row.original.memo}
+            endEdit={endEdit}
+          />
+        )}
+      />
+    ),
   },
 ]
