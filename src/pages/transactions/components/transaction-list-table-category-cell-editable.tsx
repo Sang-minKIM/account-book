@@ -1,6 +1,5 @@
 import { Select } from '@radix-ui/themes'
 import { useQueryClient } from '@tanstack/react-query'
-import { useState } from 'react'
 import { SORT_ORDER } from '~/constants/query'
 import { ELEMENT_SIZE_SMALL } from '~/constants/style'
 import { useCategoryListQuery } from '~/queries/category'
@@ -27,10 +26,7 @@ export const TransactionListTableCategoryCellEditable = ({
 
   const { data: categoryList } = useCategoryListQuery(SORT_ORDER.ASC)
 
-  const [category, setCategory] = useState(defaultValue)
-
   const handleValueChange = (value: string) => {
-    setCategory(Number(value))
     updateTransaction({
       id,
       data: { category: Number(value) },
