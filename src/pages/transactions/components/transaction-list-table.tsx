@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from '@radix-ui/themes'
+import { Box, Flex, Text, Tooltip } from '@radix-ui/themes'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { Table } from '~/components/table'
@@ -10,15 +10,22 @@ import { TransactionListTablePayeeCellEditable } from './transaction-list-table-
 import { TransactionListTableCategoryCellEditable } from './transaction-list-table-category-cell-editable'
 import { TransactionListTableMemoCellEditable } from './transaction-list-table-memo-cell-editable'
 import { TransactionListTableDateCellEditable } from './transaction-list-table-date-cell-editable'
+import { InfoCircledIcon } from '@radix-ui/react-icons'
 
 export const TransactionListTable = () => {
   const { data } = useAllTransactionsListQuery()
 
   return (
     <Flex direction="column" gap="2">
-      <Text size="4" weight="bold">
-        입출금 내역
-      </Text>
+      <Flex align="center" gap="2">
+        <Text size="4" weight="bold">
+          입출금 내역
+        </Text>
+        <Tooltip content="셀을 더블클릭해서 수정할 수 있어요" side="right">
+          <InfoCircledIcon />
+        </Tooltip>
+      </Flex>
+
       <Table.Root<Transaction> data={data} columns={columns}>
         <Table.Header />
         <Table.Body />
