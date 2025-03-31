@@ -2,7 +2,7 @@ import { ChevronLeftIcon } from '@radix-ui/react-icons'
 import { Flex, Heading } from '@radix-ui/themes'
 
 import { TransactionForm } from './components/transaction-form'
-import { IconLink } from '~/components'
+import { IconLink } from '~/components/base'
 import { ROUTE } from '~/router'
 import styled from 'styled-components'
 import { useTransactionCreateViewModel } from './hooks/use-transaction-create-view-model'

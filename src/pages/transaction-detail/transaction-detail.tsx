@@ -1,6 +1,6 @@
 import { ChevronLeftIcon, Pencil1Icon } from '@radix-ui/react-icons'
 import { Flex, Heading } from '@radix-ui/themes'
-import { IconLink } from '~/components'
+import { IconLink } from '~/components/base'
 import { ROUTE } from '~/router'
 import { TransactionDetailDataList } from './components/transaction-detail-data-list'
 import { useTransactionDetailViewModel } from './hooks/use-transaction-detail-view-model'
