@@ -9,6 +9,7 @@ import { TransactionListTableAmountCellEditable } from './transaction-list-table
 import { TransactionListTablePayeeCellEditable } from './transaction-list-table-payee-cell-editable'
 import { TransactionListTableCategoryCellEditable } from './transaction-list-table-category-cell-editable'
 import { TransactionListTableMemoCellEditable } from './transaction-list-table-memo-cell-editable'
+import { TransactionListTableDateCellEditable } from './transaction-list-table-date-cell-editable'
 
 export const TransactionListTable = () => {
   const { data } = useAllTransactionsListQuery()
@@ -89,9 +90,16 @@ const columns: ColumnDef<Transaction>[] = [
     accessorKey: 'date',
     header: '거래일자',
     cell: ({ row }) => (
-      <Text size="2" weight="medium">
-        {row.original.date.split('T')[0]}
-      </Text>
+      <Table.EditableCell
+        renderReadOnly={({ startEdit }) => <Text onDoubleClick={startEdit}>{row.original.date.split('T')[0]}</Text>}
+        renderEditable={({ endEdit }) => (
+          <TransactionListTableDateCellEditable
+            id={row.original.id}
+            defaultValue={row.original.date}
+            endEdit={endEdit}
+          />
+        )}
+      />
     ),
   },
   {
