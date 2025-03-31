@@ -33,3 +33,6 @@ export const useConfirmStore = create<ConfirmState>((set) => ({
   },
 }))
 
+export const confirmStore = {
+  open: ({ title, description }: ConfirmOptions) => useConfirmStore.getState().openConfirm({ title, description }),
+}
