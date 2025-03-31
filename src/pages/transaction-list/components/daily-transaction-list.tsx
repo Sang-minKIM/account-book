@@ -38,7 +38,7 @@ const TransactionInfo = ({ transaction }: { transaction: Transaction }) => {
       </IconButton>
       <Flex direction="column">
         <Text weight="medium" color={transaction.type === 'expense' ? undefined : 'blue'}>
-          {transactionAmountFormat(transaction.amount, transaction.type, 'full')}
+          {transactionAmountFormat({ amount: transaction.amount, type: transaction.type, mode: 'full' })}
         </Text>
         <Text size="1" color="gray">
           {transaction.type === 'expense' ? transaction.to : transaction.from}
