@@ -8,10 +8,12 @@ import { TransactionDetail } from '~/pages/transaction-detail'
 import { TransactionUpdate } from '~/pages/transaction-update'
 import { Statistics } from '~/pages/statistics'
 import { Transactions } from '~/pages/transactions'
+import { ErrorPage } from '~/pages/error-page'
 
 export const router = createBrowserRouter([
   {
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: ROUTE.transactions.root,
