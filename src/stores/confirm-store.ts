@@ -20,9 +20,8 @@ export const useConfirmStore = create<ConfirmState>((set) => ({
   title: '',
   description: '',
   openConfirm: ({ title, description }) => {
-    set({ isOpen: true, title, description })
     return new Promise<boolean>((resolve) => {
-      set({ resolve })
+      set({ resolve, isOpen: true, title, description })
     })
   },
   closeConfirm: (result: boolean) => {
