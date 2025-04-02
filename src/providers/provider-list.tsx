@@ -1,11 +1,11 @@
 import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
 
-import { ErrorCatcher } from '~/components'
 import { QueryProvider } from '~/providers/query-client-provider'
 import { StrictPropsWithChildren } from '~/types/props.type'
 import { GlobalSuspenseBoundary } from './global-suspense-boundary'
 import { GlobalStyle } from './globalStyle'
+import { ConfirmDialog } from '~/hooks/use-confirm/components/confirm-dialog'
 
 export const ProviderList = ({ children }: StrictPropsWithChildren) => {
   return (
@@ -13,8 +13,8 @@ export const ProviderList = ({ children }: StrictPropsWithChildren) => {
       <GlobalStyle />
       <GlobalSuspenseBoundary>
         <QueryProvider>
-          <ErrorCatcher />
           {children}
+          <ConfirmDialog />
         </QueryProvider>
       </GlobalSuspenseBoundary>
     </Theme>

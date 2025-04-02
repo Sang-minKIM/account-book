@@ -2,7 +2,7 @@ import { Container, Flex, Section } from '@radix-ui/themes'
 import { Pencil1Icon } from '@radix-ui/react-icons'
 import { useTransactionListViewModel } from './hooks/use-transaction-list-view-model'
 import { ROUTE } from '~/router'
-import { IconLink } from '~/components'
+import { IconLink } from '~/components/base'
 import { Calender } from '~/components/calender'
 
 import { DailyTransactionList } from './components/daily-transaction-list'
