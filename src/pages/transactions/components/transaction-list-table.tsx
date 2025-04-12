@@ -3,7 +3,7 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { Table } from '~/components/table'
 
-import { Transaction, useAllTransactionsListQuery } from '~/queries/transactions'
+import { Transaction, useTransactionListQuery } from '~/queries/transactions'
 import { transactionAmountFormat } from '~/utils/units'
 import { TransactionListTableAmountCellEditable } from './transaction-list-table-amount-cell-editable'
 import { TransactionListTablePayeeCellEditable } from './transaction-list-table-payee-cell-editable'
@@ -11,9 +11,12 @@ import { TransactionListTableCategoryCellEditable } from './transaction-list-tab
 import { TransactionListTableMemoCellEditable } from './transaction-list-table-memo-cell-editable'
 import { TransactionListTableDateCellEditable } from './transaction-list-table-date-cell-editable'
 import { InfoCircledIcon } from '@radix-ui/react-icons'
+import { SORT_ORDER } from '~/constants/query'
 
 export const TransactionListTable = () => {
-  const { data } = useAllTransactionsListQuery()
+  const { data } = useTransactionListQuery({
+    sort: [{ column: 'date', order: SORT_ORDER.DESC }],
+  })
 
   return (
     <Flex direction="column" gap="2">

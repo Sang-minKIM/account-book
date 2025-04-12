@@ -3,14 +3,19 @@ import { DateState } from '~/components/calender/calender.type'
 import { useCalender } from '~/components/calender/hooks/use-calender'
 import { SORT_ORDER } from '~/constants/query'
 
-import { Transaction, RequiredInfo, useTransactionsListQuery } from '~/queries/transactions'
-import { toNumber } from '~/utils/number'
-import { getSumOfTransactions } from '../services/getSumOfTransactions'
+import { Transaction, RequiredInfo, useTransactionListQuery } from '~/queries/transactions'
+import { getSumOfTransactions } from '../services/get-sum-of-transactions'
 import { dateFormat } from '~/utils/date'
 
 export const useTransactionListViewModel = () => {
   const { year, month, day, dispatch: dispatchCalender } = useCalender()
-  const { data } = useTransactionsListQuery(toNumber(year), toNumber(month) + 1, SORT_ORDER.DESC)
+  const { data } = useTransactionListQuery({
+    sort: [{ column: 'date', order: SORT_ORDER.DESC }],
+    filters: [
+      { column: 'date', operator: 'gte', value: `${year}-${month + 1}-01` },
+      { column: 'date', operator: 'lte', value: `${year}-${month + 1}-${day}` },
+    ],
+  })
 
   const monthlyIncome = useMemo(() => getSumOfTransactions('income', data), [data])
   const monthlyExpense = useMemo(() => getSumOfTransactions('expense', data), [data])
