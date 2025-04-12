@@ -51,13 +51,11 @@ const BaseTransactionCreateSchema = z.object({
 const ExpenseCreateSchema = BaseTransactionCreateSchema.extend({
   type: z.literal(TRANSACTION_TYPE.EXPENSE),
   to: z.string().min(1, '필수 입력 항목입니다.'),
-  from: z.string().optional(),
 })
 
 const IncomeCreateSchema = BaseTransactionCreateSchema.extend({
   type: z.literal(TRANSACTION_TYPE.INCOME),
   from: z.string().min(1, '필수 입력 항목입니다.'),
-  to: z.string().optional(),
 })
 
 export const TransactionCreateSchema = z.discriminatedUnion('type', [ExpenseCreateSchema, IncomeCreateSchema])
