@@ -27,7 +27,7 @@ interface SortCondition {
   order: SortOrder
 }
 
-interface QueryOptions {
+export interface QueryOptions {
   filters?: FilterCondition[]
   sort?: SortCondition[]
   limit?: number

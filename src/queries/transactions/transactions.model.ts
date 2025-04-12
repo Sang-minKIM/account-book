@@ -1,13 +1,10 @@
-import { SortOrder } from '~/types/query.type'
+import { QueryOptions, buildQuery } from '~/utils/build-query'
 
 export const TRANSACTIONS_ENDPOINT = {
   default: '/transactions',
-  all: ({ sortOrder }: { sortOrder?: SortOrder }) =>
-    `${TRANSACTIONS_ENDPOINT.default}?select=*,category:categories(*)&order=date.${sortOrder}`,
-  list: (year: number, month: number, sortOrder: SortOrder, type?: string) => {
-    const startDate = `${year}-${month.toString().padStart(2, '0')}-01`
-    const endDate = `${year}-${month.toString().padStart(2, '0')}-${new Date(year, month, 0).getDate()}`
-    return `${TRANSACTIONS_ENDPOINT.default}?select=*,category:categories(*)&date=gte.${startDate}&date=lte.${endDate}&order=date.${sortOrder}&type=eq.${type}`
+  list: (options: QueryOptions) => {
+    const baseEndpoint = `${TRANSACTIONS_ENDPOINT.default}?select=*,category:categories(*)`
+    return buildQuery(baseEndpoint, options)
   },
   detail: (transactionId: string) => {
     return `${TRANSACTIONS_ENDPOINT.default}?id=eq.${transactionId}&select=*,category:categories(*)&limit=1`
@@ -19,8 +16,9 @@ export const TRANSACTIONS_ENDPOINT = {
 
 export const TRANSACTIONS_KEY = {
   default: ['transaction'],
-  list: (year: number, month: number, sortOrder: SortOrder) => {
-    return [...TRANSACTIONS_KEY.default, year, month, sortOrder]
+
+  list: (options: QueryOptions) => {
+    return [...TRANSACTIONS_KEY.default, options]
   },
   detail: (transactionId: string) => {
     return [...TRANSACTIONS_KEY.default, transactionId]
