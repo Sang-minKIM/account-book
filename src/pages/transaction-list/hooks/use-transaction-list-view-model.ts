@@ -3,9 +3,12 @@ import { DateState } from '~/components/calender/calender.type'
 import { useCalender } from '~/components/calender/hooks/use-calender'
 import { SORT_ORDER } from '~/constants/query'
 
-import { Transaction, RequiredInfo, useTransactionListQuery } from '~/queries/transactions'
+import { useTransactionListQuery, TransactionSchema } from '~/queries/transactions'
 import { getSumOfTransactions } from '../services/get-sum-of-transactions'
 import { dateFormat } from '~/utils/date'
+import { z } from 'zod'
+
+type Transaction = z.infer<typeof TransactionSchema>
 
 export const useTransactionListViewModel = () => {
   const { year, month, day, dispatch: dispatchCalender } = useCalender()
@@ -38,7 +41,7 @@ export const useTransactionListViewModel = () => {
     : []
 
   const getDailyTransaction = useCallback(
-    ({ type, year, month, day }: Pick<RequiredInfo, 'type'> & DateState) => {
+    ({ type, year, month, day }: Pick<Transaction, 'type'> & DateState) => {
       const date = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`
       const transactions = dailyTransactionMap.get(date)
       return transactions ? getSumOfTransactions(type, transactions) : 0

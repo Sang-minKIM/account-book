@@ -1,46 +1,29 @@
 import { z } from 'zod'
-import { CategoryResponse } from '../category'
 import { TRANSACTION_TYPE } from '~/constants/transaction'
+import { CategorySchema } from '../category'
 
-type ExpenseTransaction = {
-  type: typeof TRANSACTION_TYPE.EXPENSE
-  from?: string
-  to: string
-}
-
-type IncomeTransaction = {
-  type: typeof TRANSACTION_TYPE.INCOME
-  from: string
-  to?: string
-}
-export type Transaction = {
-  id: string
-  amount: number
-  memo: string
-  category: CategoryResponse
-  date: string
-} & (ExpenseTransaction | IncomeTransaction)
-
-const requiredInfoSchema = z.object({
-  type: z.enum([TRANSACTION_TYPE.INCOME, TRANSACTION_TYPE.EXPENSE]),
-  amount: z.number().positive().max(1000000000, '너무 큰 금액입니다.'),
-  payee: z.string().min(1, '필수 입력 항목입니다.'),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/, '올바른 날짜를 입력해주세요'),
-})
-
-const optionalInfoSchema = z.object({
-  category: z.number().min(1),
+const BaseTransactionSchema = z.object({
+  id: z.string(),
+  amount: z.number().positive(),
+  date: z.string(),
+  category: CategorySchema,
   memo: z.string(),
 })
 
-export const transactionFormSchema = requiredInfoSchema.merge(optionalInfoSchema)
+const ExpenseSchema = BaseTransactionSchema.extend({
+  type: z.literal(TRANSACTION_TYPE.EXPENSE),
+  to: z.string(),
+  from: z.null(),
+})
 
-export type TransactionFormData = z.infer<typeof transactionFormSchema>
-export type RequiredInfo = z.infer<typeof requiredInfoSchema>
-export type OptionalInfo = z.infer<typeof optionalInfoSchema>
+const IncomeSchema = BaseTransactionSchema.extend({
+  type: z.literal(TRANSACTION_TYPE.INCOME),
+  from: z.string(),
+  to: z.null(),
+})
 
-// FIXME: 스키마 타입 단순화 필요. 위의 타입들 추후 없애기
-// 기본적으로 요청에 보낼 타입을 스키마로 정의하고 각 컴포넌트의 상태는 infer로 다루기. 유효성 검사할 때는 요청 타입에 맞게 변환 필요
+export const TransactionSchema = z.discriminatedUnion('type', [ExpenseSchema, IncomeSchema])
+
 const BaseTransactionCreateSchema = z.object({
   amount: z.number().positive().max(1000000000, '너무 큰 금액입니다.').min(1, '최소 1원 이상 입력해주세요'),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}/, '올바른 날짜를 입력해주세요'),

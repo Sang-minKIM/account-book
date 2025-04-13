@@ -1,10 +1,12 @@
 import { MutationOptions, useMutation, useSuspenseQuery } from '@tanstack/react-query'
 
 import { TRANSACTIONS_ENDPOINT, TRANSACTIONS_KEY } from './transactions.model'
-import { Transaction, TransactionCreateSchema, TransactionUpdateSchema } from './transactions.type'
+import { TransactionSchema, TransactionCreateSchema, TransactionUpdateSchema } from './transactions.type'
 import { request } from '~/utils/request'
 import { z } from 'zod'
 import { QueryOptions } from '~/utils/build-query'
+
+type Transaction = z.infer<typeof TransactionSchema>
 
 export const useTransactionListQuery = (options: QueryOptions) => {
   return useSuspenseQuery<Transaction[]>({

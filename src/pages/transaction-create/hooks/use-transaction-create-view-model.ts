@@ -1,5 +1,5 @@
 import { useReducer } from 'react'
-import { transactionFormSchema } from '~/queries/transactions/transactions.type'
+import { TransactionCreateSchema } from '~/queries/transactions'
 import { useTransactionCreateMutation } from '~/queries/transactions'
 import { useNavigate } from 'react-router-dom'
 import { ROUTE } from '~/router'
@@ -23,7 +23,7 @@ export const useTransactionCreateViewModel = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    transactionFormSchema.parse({
+    TransactionCreateSchema.parse({
       ...requiredInfo,
       ...optionalInfo,
     })
@@ -36,7 +36,7 @@ export const useTransactionCreateViewModel = () => {
       category: optionalInfo.category,
       memo: optionalInfo.memo,
     })
-    navigate(ROUTE.transaction.list)
+    navigate(ROUTE.transactions.root)
     return createTransactionResult
   }
 

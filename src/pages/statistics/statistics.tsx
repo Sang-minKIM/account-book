@@ -2,10 +2,13 @@ import { styled } from 'styled-components'
 import { DonutChart } from './components/donut-chart'
 import { Flex, Section, Text } from '@radix-ui/themes'
 import { transactionAmountFormat } from '~/utils/units'
-import { Transaction, useTransactionListQuery } from '~/queries/transactions'
+import { TransactionCreateSchema, useTransactionListQuery } from '~/queries/transactions'
 import { SORT_ORDER } from '~/constants/query'
 import { useMemo } from 'react'
 import { DailyTransactionList } from '../transaction-list/components/daily-transaction-list'
+import { z } from 'zod'
+
+type Transaction = z.infer<typeof TransactionCreateSchema>
 
 export const Statistics = () => {
   const date = new Date()
