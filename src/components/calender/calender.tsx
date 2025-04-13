@@ -1,5 +1,5 @@
 import { TriangleLeftIcon, TriangleRightIcon } from '@radix-ui/react-icons'
-import { Button, Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
+import { Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
 
 import { times } from 'es-toolkit/compat'
 import styled from 'styled-components'
@@ -7,8 +7,9 @@ import { getDayOfFirstDayInMonth, getLastDayOfMonth } from './services/calender'
 import { ACTION_TYPE, DAY_TITLES } from './calender.model'
 import { CalenderProps } from './calender.type'
 import { transactionAmountFormat } from '~/utils/units'
+import { Day } from './day'
 
-export function Calender({ year, month, day, dispatch, getDailyTransaction, onDateChange }: CalenderProps) {
+export const Calender = ({ year, month, day, dispatch, getDailyTransaction, onDateChange }: CalenderProps) => {
   return (
     <Container direction="column" width="100%" height="fit-content">
       <Flex justify="center" mb="2" align="center" py="2" gap="2">
@@ -29,18 +30,22 @@ export function Calender({ year, month, day, dispatch, getDailyTransaction, onDa
       {/* 요일 표시 */}
       <Flex mb="1">
         {DAY_TITLES.map((dayTitle, index) => (
-          <Day size="2" align="center" key={index} color="gray">
+          <WeekDayLabel size="2" align="center" key={index} color="gray">
             {dayTitle}
-          </Day>
+          </WeekDayLabel>
         ))}
       </Flex>
 
       <Grid columns="7" justify="center" align="center" gap="2" width="100%" height="100%">
         {/* 이전 달의 날짜들 */}
         {times(getDayOfFirstDayInMonth(year, month), (index) => (
-          <DayButton radius="large" size="3" key={index} disabled>
-            {getLastDayOfMonth(year, month - 1) - getDayOfFirstDayInMonth(year, month) + index + 1}
-          </DayButton>
+          <Day
+            radius="large"
+            size="3"
+            key={index}
+            date={getLastDayOfMonth(year, month - 1) - getDayOfFirstDayInMonth(year, month) + index + 1}
+            disabled
+          />
         ))}
         {/* 현재 달의 날짜들 */}
         {times(getLastDayOfMonth(year, month), (index) => {
@@ -49,15 +54,7 @@ export function Calender({ year, month, day, dispatch, getDailyTransaction, onDa
           const expense = getDailyTransaction({ type: 'expense', year, month: month + 1, day: date })
           const income = getDailyTransaction({ type: 'income', year, month: month + 1, day: date })
           return (
-            <DayButton
-              radius="large"
-              key={index}
-              color="gray"
-              variant={selected ? 'outline' : 'soft'}
-              size="3"
-              onClick={() => dispatch({ type: ACTION_TYPE.SET_DAY, payload: index + 1 })}
-            >
-              {date}
+            <Day key={date} date={date} color="gray" variant={selected ? 'outline' : 'soft'} size="3">
               <Flex direction="column" align="center" justify="center">
                 <Text size="1" color="blue">
                   {income > 0 && transactionAmountFormat({ amount: income, type: 'income' })}
@@ -66,14 +63,12 @@ export function Calender({ year, month, day, dispatch, getDailyTransaction, onDa
                   {expense > 0 && transactionAmountFormat({ amount: expense, type: 'expense' })}
                 </Text>
               </Flex>
-            </DayButton>
+            </Day>
           )
         })}
         {/* 다음 달의 날짜들 */}
         {times(7 - getDayOfFirstDayInMonth(year, month + 1), (index) => (
-          <DayButton radius="large" size="3" key={index} disabled>
-            {index + 1}
-          </DayButton>
+          <Day key={index + 1} date={index + 1} radius="large" size="3" disabled />
         ))}
       </Grid>
     </Container>
@@ -84,22 +79,9 @@ const Container = styled(Flex)`
   flex: 1;
 `
 
-const Day = styled(Text)`
+const WeekDayLabel = styled(Text)`
   flex: 1;
 `
 const Grid = styled(RGrid)`
   justify-items: center;
-`
-
-const DayButton = styled(Button)`
-  width: 100%;
-  height: 100%;
-  min-height: 60px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 2px;
-  box-sizing: border-box;
-  background-color: transparent;
 `
