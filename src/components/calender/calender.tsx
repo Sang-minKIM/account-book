@@ -12,7 +12,6 @@ import { transactionAmountFormat } from '~/utils/units'
 import { getFirstDayOfMonth } from './services/get-first-day-of-month'
 import { getLastDayOfMonth } from './services/get-last-day-of-month'
 import { ACTION_TYPE, ActionType, DateState } from './hooks/use-calendar'
-import { DAY_TITLES } from './calender.model'
 import { Day } from './day'
 
 type Transaction = z.infer<typeof TransactionSchema>
@@ -91,6 +90,8 @@ export const Calender = ({ year, month, day, dispatch, getDailyTransaction }: Ca
     </Container>
   )
 }
+
+const DAY_TITLES = ['일', '월', '화', '수', '목', '금', '토']
 
 const Container = styled(Flex)`
   flex: 1;
