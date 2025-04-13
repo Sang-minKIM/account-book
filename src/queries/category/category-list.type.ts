@@ -1,6 +1,6 @@
-export interface CategoryResponse {
-  id: number
-  name: string
-}
+import { z } from 'zod'
 
-export type Category = CategoryResponse['name']
+export const CategorySchema = z.object({
+  id: z.number(),
+  name: z.string(),
+})

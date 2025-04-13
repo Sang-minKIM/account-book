@@ -2,12 +2,11 @@ import { Flex, Select, Text, TextArea } from '@radix-ui/themes'
 
 import { OptionalInfoProps } from './optional-info-fields.type'
 import { useCategoryListQuery } from '~/queries/category'
-import { SORT_ORDER } from '~/constants/query'
 import { ELEMENT_SIZE } from '~/constants/style'
 
 export const OptionalInfoFields = ({ optionalInfo: { memo }, dispatchOptional }: OptionalInfoProps) => {
   // FIXME: 리펙토링 필요 뷰모델로 옮길건지 결정, 메모 최대 길이 제한하는거 어떻게 할지
-  const { data: categoryList } = useCategoryListQuery(SORT_ORDER.ASC)
+  const { data: categoryList } = useCategoryListQuery()
 
   const handleMemoChange = (value: string) => {
     if (value.length > MAX_MEMO_LENGTH) {

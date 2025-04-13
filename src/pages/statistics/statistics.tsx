@@ -2,16 +2,21 @@ import { styled } from 'styled-components'
 import { DonutChart } from './components/donut-chart'
 import { Flex, Section, Text } from '@radix-ui/themes'
 import { transactionAmountFormat } from '~/utils/units'
-import { Transaction, useTransactionsListQuery } from '~/queries/transactions'
-import { toNumber } from '~/utils/number'
+import { TransactionCreateSchema, useTransactionListQuery } from '~/queries/transactions'
 import { SORT_ORDER } from '~/constants/query'
 import { useMemo } from 'react'
 import { DailyTransactionList } from '../transaction-list/components/daily-transaction-list'
+import { z } from 'zod'
+
+type Transaction = z.infer<typeof TransactionCreateSchema>
 
 export const Statistics = () => {
   const date = new Date()
   const { year, month } = { year: date.getFullYear(), month: date.getMonth() }
-  const { data } = useTransactionsListQuery(toNumber(year), toNumber(month) + 1, SORT_ORDER.DESC)
+  const { data } = useTransactionListQuery({
+    sort: [{ column: 'date', order: SORT_ORDER.DESC }],
+    filters: [{ column: 'date', operator: 'gte', value: `${year}-${month + 1}-01` }],
+  })
 
   const categoryTransactionMap = useMemo(
     () =>

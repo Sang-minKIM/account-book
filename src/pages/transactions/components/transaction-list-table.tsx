@@ -1,19 +1,28 @@
+import { z } from 'zod'
 import { Box, Flex, Text, Tooltip } from '@radix-ui/themes'
+import { InfoCircledIcon } from '@radix-ui/react-icons'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { Table } from '~/components/table'
 
-import { Transaction, useAllTransactionsListQuery } from '~/queries/transactions'
+import { useTransactionListQuery, TransactionSchema } from '~/queries/transactions'
+
 import { transactionAmountFormat } from '~/utils/units'
+
+import { SORT_ORDER } from '~/constants/query'
+
 import { TransactionListTableAmountCellEditable } from './transaction-list-table-amount-cell-editable'
 import { TransactionListTablePayeeCellEditable } from './transaction-list-table-payee-cell-editable'
 import { TransactionListTableCategoryCellEditable } from './transaction-list-table-category-cell-editable'
 import { TransactionListTableMemoCellEditable } from './transaction-list-table-memo-cell-editable'
 import { TransactionListTableDateCellEditable } from './transaction-list-table-date-cell-editable'
-import { InfoCircledIcon } from '@radix-ui/react-icons'
+
+type Transaction = z.infer<typeof TransactionSchema>
 
 export const TransactionListTable = () => {
-  const { data } = useAllTransactionsListQuery()
+  const { data } = useTransactionListQuery({
+    sort: [{ column: 'date', order: SORT_ORDER.DESC }],
+  })
 
   return (
     <Flex direction="column" gap="2">
