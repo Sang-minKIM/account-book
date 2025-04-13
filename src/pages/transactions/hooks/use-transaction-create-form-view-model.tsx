@@ -11,7 +11,7 @@ type TransactionFormState = Omit<TransactionRequestBody, 'from' | 'to'> & { paye
 export const useTransactionCreateFormViewModel = () => {
   const [transaction, dispatch] = useReducer(reducer, initialState)
 
-  const { data: categoryList } = useCategoryListQuery(SORT_ORDER.ASC)
+  const { data: categoryList } = useCategoryListQuery()
   const { refetch: refetchTransactions } = useTransactionListQuery({
     sort: [{ column: 'date', order: SORT_ORDER.DESC }],
   })

@@ -1,15 +1,21 @@
-import { SortOrder } from '~/types/query.type'
+import { SORT_ORDER } from '~/constants/query'
+import { buildQuery } from '~/utils/build-query'
+
+import { QueryOptions } from '~/utils/build-query'
 
 export const CATEGORY_LIST_ENDPOINT = {
   default: '/categories',
-  order: (body: { order: SortOrder }) => {
-    return `${CATEGORY_LIST_ENDPOINT.default}?order=id.${body.order}`
+  list: () => {
+    const options: QueryOptions = {
+      sort: [{ column: 'id', order: SORT_ORDER.ASC }],
+    }
+    return `${CATEGORY_LIST_ENDPOINT.default}?${buildQuery('', options)}`
   },
 }
 
 export const CATEGORY_LIST_KEY = {
   default: ['category-list'],
-  order: (body: { order: SortOrder }) => {
-    return [...CATEGORY_LIST_KEY.default, body.order]
+  list: () => {
+    return [...CATEGORY_LIST_KEY.default]
   },
 }
