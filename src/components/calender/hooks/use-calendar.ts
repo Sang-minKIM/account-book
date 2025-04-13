@@ -1,7 +1,13 @@
 import { useReducer } from 'react'
-import { ACTION_TYPE } from '../calender.model'
-import { ActionType, DateState } from '../calender.type'
-import { getLastDayOfMonth, getNextMonthAndYear, getPrevMonthAndYear } from '../services/calender'
+import { getLastDayOfMonth } from '../services/get-last-day-of-month'
+import { getPrevMonthAndYear } from '../services/get-prev-month-and-year'
+import { getNextMonthAndYear } from '../services/get-next-month-and-year'
+
+export interface DateState {
+  year: number
+  month: number
+  day: number
+}
 
 export const useCalender = (defaultDate = new Date()) => {
   const initialDate = {
@@ -43,3 +49,16 @@ function dateReducer(state: DateState, action: ActionType): DateState {
       return state
   }
 }
+
+export type ActionType =
+  | { type: typeof ACTION_TYPE.SET_MONTH; payload: number }
+  | { type: typeof ACTION_TYPE.SET_PREV_MONTH }
+  | { type: typeof ACTION_TYPE.SET_NEXT_MONTH }
+  | { type: typeof ACTION_TYPE.SET_DAY; payload: number }
+
+export const ACTION_TYPE = {
+  SET_MONTH: 'SET_MONTH',
+  SET_PREV_MONTH: 'SET_PREV_MONTH',
+  SET_NEXT_MONTH: 'SET_NEXT_MONTH',
+  SET_DAY: 'SET_DAY',
+} as const

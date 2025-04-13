@@ -1,16 +1,32 @@
+import { Dispatch } from 'react'
+import { z } from 'zod'
+import styled from 'styled-components'
+import { times } from 'es-toolkit/compat'
+
 import { TriangleLeftIcon, TriangleRightIcon } from '@radix-ui/react-icons'
 import { Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
 
-import { times } from 'es-toolkit/compat'
-import styled from 'styled-components'
+import { TransactionSchema } from '~/queries/transactions'
+import { transactionAmountFormat } from '~/utils/units'
+
 import { getFirstDayOfMonth } from './services/get-first-day-of-month'
 import { getLastDayOfMonth } from './services/get-last-day-of-month'
-import { ACTION_TYPE, DAY_TITLES } from './calender.model'
-import { CalenderProps } from './calender.type'
-import { transactionAmountFormat } from '~/utils/units'
+import { ACTION_TYPE, ActionType, DateState } from './hooks/use-calendar'
+import { DAY_TITLES } from './calender.model'
 import { Day } from './day'
 
-export const Calender = ({ year, month, day, dispatch, getDailyTransaction, onDateChange }: CalenderProps) => {
+type Transaction = z.infer<typeof TransactionSchema>
+
+export interface CalenderProps {
+  defaultDate?: Date
+  getDailyTransaction: ({ type, year, month, day }: Pick<Transaction, 'type'> & DateState) => number
+  year: number
+  month: number
+  day: number
+  dispatch: Dispatch<ActionType>
+}
+
+export const Calender = ({ year, month, day, dispatch, getDailyTransaction }: CalenderProps) => {
   return (
     <Container direction="column" width="100%" height="fit-content">
       <Flex justify="center" mb="2" align="center" py="2" gap="2">
