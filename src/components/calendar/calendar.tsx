@@ -25,7 +25,7 @@ export interface CalenderProps {
   dispatch: Dispatch<ActionType>
 }
 
-export const Calender = ({ year, month, day, dispatch, getDailyTransaction }: CalenderProps) => {
+export const Calendar = ({ year, month, day, dispatch, getDailyTransaction }: CalenderProps) => {
   return (
     <Container direction="column" width="100%" height="fit-content">
       <Flex justify="center" mb="2" align="center" py="2" gap="2">

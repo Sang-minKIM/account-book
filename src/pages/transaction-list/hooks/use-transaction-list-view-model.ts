@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from 'react'
-import { DateState } from '~/components/calender/calender.type'
-import { useCalender } from '~/components/calender/hooks/use-calendar'
+import { DateState } from '~/components/calendar/calendar.type'
+import { useCalender } from '~/components/calendar/hooks/use-calendar'
 import { SORT_ORDER } from '~/constants/query'
 
 import { useTransactionListQuery, TransactionSchema } from '~/queries/transactions'

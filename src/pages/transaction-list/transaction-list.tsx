@@ -3,7 +3,7 @@ import { Pencil1Icon } from '@radix-ui/react-icons'
 import { useTransactionListViewModel } from './hooks/use-transaction-list-view-model'
 import { ROUTE } from '~/router'
 import { IconLink } from '~/components/base'
-import { Calender } from '~/components/calender'
+import { Calendar } from '~/components/calendar'
 
 import { DailyTransactionList } from './components/daily-transaction-list'
 import { MonthlyTransaction } from './components/monthly-transaction'
@@ -29,7 +29,7 @@ export const TransactionList = () => {
       </Flex>
       <Flex justify="between" gap="9" height="calc(100dvh - 50px)">
         <Section width="50%" minWidth="300px">
-          <Calender
+          <Calendar
             getDailyTransaction={getDailyTransaction}
             year={year}
             month={month}
