@@ -3,8 +3,7 @@ import { QueryOptions, buildQuery } from '~/utils/build-query'
 export const TRANSACTIONS_ENDPOINT = {
   default: '/transactions',
   list: (options: QueryOptions) => {
-    const baseEndpoint = `${TRANSACTIONS_ENDPOINT.default}?select=*,category:categories(*)`
-    return buildQuery(baseEndpoint, options)
+    return `${TRANSACTIONS_ENDPOINT.default}?${buildQuery('select=*,category:categories(*)', options)}`
   },
   detail: (transactionId: string) => {
     return `${TRANSACTIONS_ENDPOINT.default}?id=eq.${transactionId}&select=*,category:categories(*)&limit=1`

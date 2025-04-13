@@ -35,11 +35,11 @@ export interface QueryOptions {
 
 /**
  * 엔드포인트에 필터링과 정렬 조건을 추가하는 함수
- * @param baseEndpoint 기본 엔드포인트 쿼리 (예: '/transactions?select=*,category:categories(*)')
+ * @param baseSearchParamsString 기본 엔드포인트 쿼리 (예: '?select=*,category:categories(*)')
  * @param options 필터링 및 정렬 옵션
  * @returns 완성된 쿼리 URL
  */
-export function buildQuery(baseEndpoint: string, options: QueryOptions): string {
+export function buildQuery(baseSearchParamsString: string, options: QueryOptions): string {
   const { filters, sort, limit } = options
 
   const hasFilters = filters !== undefined && filters.length > 0
@@ -47,11 +47,10 @@ export function buildQuery(baseEndpoint: string, options: QueryOptions): string 
   const hasLimit = limit !== undefined
 
   if (!hasFilters && !hasSort && !hasLimit) {
-    return baseEndpoint
+    return baseSearchParamsString
   }
 
-  const endPoint = new URL(baseEndpoint)
-  const queryParams = endPoint.searchParams
+  const queryParams = new URLSearchParams(baseSearchParamsString)
 
   if (hasFilters) {
     const filterParamEntries = filters.map(filterToParamEntry)
@@ -67,7 +66,7 @@ export function buildQuery(baseEndpoint: string, options: QueryOptions): string 
     queryParams.set('limit', limit.toString())
   }
 
-  return endPoint.toString()
+  return queryParams.toString()
 }
 
 function filterValueToString(filter: FilterCondition): string {
