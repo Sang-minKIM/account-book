@@ -3,7 +3,8 @@ import { Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
 
 import { times } from 'es-toolkit/compat'
 import styled from 'styled-components'
-import { getDayOfFirstDayInMonth, getLastDayOfMonth } from './services/calender'
+import { getFirstDayOfMonth } from './services/get-first-day-of-month'
+import { getLastDayOfMonth } from './services/get-last-day-of-month'
 import { ACTION_TYPE, DAY_TITLES } from './calender.model'
 import { CalenderProps } from './calender.type'
 import { transactionAmountFormat } from '~/utils/units'
@@ -38,12 +39,12 @@ export const Calender = ({ year, month, day, dispatch, getDailyTransaction, onDa
 
       <Grid columns="7" justify="center" align="center" gap="2" width="100%" height="100%">
         {/* 이전 달의 날짜들 */}
-        {times(getDayOfFirstDayInMonth(year, month), (index) => (
+        {times(getFirstDayOfMonth(year, month), (index) => (
           <Day
             radius="large"
             size="3"
             key={index}
-            date={getLastDayOfMonth(year, month - 1) - getDayOfFirstDayInMonth(year, month) + index + 1}
+            date={getLastDayOfMonth(year, month - 1) - getFirstDayOfMonth(year, month) + index + 1}
             disabled
           />
         ))}
@@ -67,7 +68,7 @@ export const Calender = ({ year, month, day, dispatch, getDailyTransaction, onDa
           )
         })}
         {/* 다음 달의 날짜들 */}
-        {times(7 - getDayOfFirstDayInMonth(year, month + 1), (index) => (
+        {times(7 - getFirstDayOfMonth(year, month + 1), (index) => (
           <Day key={index + 1} date={index + 1} radius="large" size="3" disabled />
         ))}
       </Grid>
