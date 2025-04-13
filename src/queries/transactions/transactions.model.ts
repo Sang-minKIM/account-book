@@ -6,10 +6,17 @@ export const TRANSACTIONS_ENDPOINT = {
     return `${TRANSACTIONS_ENDPOINT.default}?${buildQuery('select=*,category:categories(*)', options)}`
   },
   detail: (transactionId: string) => {
-    return `${TRANSACTIONS_ENDPOINT.default}?id=eq.${transactionId}&select=*,category:categories(*)&limit=1`
+    const options: QueryOptions = {
+      limit: 1,
+      filters: [{ column: 'id', operator: 'eq', value: transactionId }],
+    }
+    return `${TRANSACTIONS_ENDPOINT.default}?${buildQuery('select=*,category:categories(*)', options)}`
   },
   update: (transactionId: string) => {
-    return `${TRANSACTIONS_ENDPOINT.default}?id=eq.${transactionId}`
+    const options: QueryOptions = {
+      filters: [{ column: 'id', operator: 'eq', value: transactionId }],
+    }
+    return `${TRANSACTIONS_ENDPOINT.default}?${buildQuery('', options)}`
   },
 }
 
