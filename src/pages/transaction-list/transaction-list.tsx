@@ -7,6 +7,8 @@ import { Calendar } from '~/components/calendar'
 
 import { DailyTransactionList } from './components/daily-transaction-list'
 import { MonthlyTransaction } from './components/monthly-transaction'
+import { DateCellDef } from '~/components/calendar/calendar'
+import { Day } from '~/components/calendar/day'
 
 export const TransactionList = () => {
   const {
@@ -29,13 +31,7 @@ export const TransactionList = () => {
       </Flex>
       <Flex justify="between" gap="9" height="calc(100dvh - 50px)">
         <Section width="50%" minWidth="300px">
-          <Calendar
-            getDailyTransaction={getDailyTransaction}
-            year={year}
-            month={month}
-            day={day}
-            dispatch={dispatchCalender}
-          />
+          <Calendar year={year} month={month} dateCells={dateCells} />
           <MonthlyTransaction monthlyIncome={monthlyIncome} monthlyExpense={monthlyExpense} />
         </Section>
         <Section width="50%" minWidth="300px">
@@ -44,4 +40,26 @@ export const TransactionList = () => {
       </Flex>
     </Container>
   )
+}
+
+const dateCells: DateCellDef = {
+  prevMonthDate: ({ date }) => {
+    return <Day date={date} disabled />
+  },
+  currentMonthDate: ({ date, day }) => {
+    const color = (() => {
+      switch (day) {
+        case '일':
+          return 'red'
+        case '토':
+          return 'blue'
+        default:
+          return 'gray'
+      }
+    })()
+    return <Day date={date} color={color} variant="soft" />
+  },
+  nextMonthDate: ({ date }) => {
+    return <Day date={date} disabled />
+  },
 }

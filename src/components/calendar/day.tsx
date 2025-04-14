@@ -1,8 +1,13 @@
 import { Button, ButtonProps } from '@radix-ui/themes'
-import { PropsWithChildren } from 'react'
+import { ReactNode } from 'react'
 import { styled } from 'styled-components'
 
-export const Day = ({ date, children, ...props }: PropsWithChildren<{ date: number }> & ButtonProps) => {
+interface DayProps<T extends ReactNode> extends ButtonProps {
+  date: number
+  children?: T
+}
+
+export const Day = <T extends ReactNode>({ date, children, ...props }: DayProps<T>) => {
   return (
     <DayButton {...props}>
       {date}
