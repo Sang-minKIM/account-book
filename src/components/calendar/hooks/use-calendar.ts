@@ -1,5 +1,5 @@
 import { useReducer } from 'react'
-import { getLastDayOfMonth } from '../services/get-last-day-of-month'
+import { getLastDateOfMonth } from '../services/get-last-date-of-month'
 import { getPrevMonthAndYear } from '../services/get-prev-month-and-year'
 import { getNextMonthAndYear } from '../services/get-next-month-and-year'
 
@@ -26,7 +26,7 @@ function dateReducer(state: DateState, action: ActionType): DateState {
       return { ...state, month: action.payload, day: 1 }
     case ACTION_TYPE.SET_PREV_MONTH: {
       const [prevYear, prevMonth] = getPrevMonthAndYear(state.year, state.month)
-      const daysInPrevMonth = getLastDayOfMonth(prevYear, prevMonth)
+      const daysInPrevMonth = getLastDateOfMonth(prevYear, prevMonth)
       return {
         ...state,
         year: prevYear,

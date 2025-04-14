@@ -5,7 +5,7 @@ import { TriangleLeftIcon, TriangleRightIcon } from '@radix-ui/react-icons'
 import { Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
 
 import { getFirstDayOfMonth } from './services/get-first-day-of-month'
-import { getLastDayOfMonth } from './services/get-last-day-of-month'
+import { getLastDayOfMonth } from './services/get-last-date-of-month'
 import { Day } from './day'
 import { getDay } from './services/get-day'
 
@@ -57,8 +57,10 @@ export const Calendar = ({ year, month, dateCells }: CalendarProps) => {
 
       <Grid columns="7" justify="center" align="center" gap="2" width="100%" height="100%">
         {/* 이전 달의 날짜들 */}
+        {/* {pipe(range())} */}
         {times(getFirstDayOfMonth(year, month), (index) => {
           if (typeof dateCells.prevMonthDate === 'function') {
+            console.log(getLastDayOfMonth(year, month - 1))
             const date = getLastDayOfMonth(year, month - 1) - getFirstDayOfMonth(year, month) + index + 1
             return dateCells.prevMonthDate({
               year,
