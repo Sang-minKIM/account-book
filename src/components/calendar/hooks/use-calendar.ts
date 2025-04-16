@@ -1,7 +1,7 @@
 import { useReducer } from 'react'
-import { getLastDateOfMonth } from '../services/get-last-date-of-month'
-import { getPrevMonthAndYear } from '../services/get-prev-month-and-year'
-import { getNextMonthAndYear } from '../services/get-next-month-and-year'
+import { getLastDateOfMonth } from '../utils/get-last-date-of-month'
+import { getPrevMonthAndYear } from '../utils/get-prev-month-and-year'
+import { getNextMonthAndYear } from '../utils/get-next-month-and-year'
 
 export interface DateState {
   year: number
