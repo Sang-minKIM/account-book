@@ -29,8 +29,14 @@ interface CalendarProps {
 }
 
 export const Calendar = ({ year, month, dateCells }: CalendarProps) => {
+  const firstDayOfCurrentMonth = getFirstDayOfMonth(year, month)
+  const lastDateOfPrevMonth = getLastDateOfMonth(year, month - 1)
+
+  const prevMonthStartDate = lastDateOfPrevMonth - firstDayOfCurrentMonth + 1
+  const prevMonthEndDate = lastDateOfPrevMonth
+
   const prevMonthDateCells = pipe(
-    range(getLastDateOfMonth(year, month - 1) - getFirstDayOfMonth(year, month), getLastDateOfMonth(year, month - 1)),
+    inclusiveRange(prevMonthStartDate, prevMonthEndDate),
     map((date) => {
       return dateCells.prevMonthDate?.({
         year,
@@ -42,8 +48,11 @@ export const Calendar = ({ year, month, dateCells }: CalendarProps) => {
     toArray
   )
 
+  const currentMonthStartDate = 1
+  const currentMonthEndDate = getLastDateOfMonth(year, month)
+
   const currentMonthDateCells = pipe(
-    range(FIRST_DATE_OF_MONTH, getLastDateOfMonth(year, month)),
+    inclusiveRange(currentMonthStartDate, currentMonthEndDate),
     map((date) => {
       return dateCells.currentMonthDate({
         year,
@@ -55,8 +64,13 @@ export const Calendar = ({ year, month, dateCells }: CalendarProps) => {
     toArray
   )
 
+  const firstDayOfNextMonth = getFirstDayOfMonth(year, month + 1)
+
+  const nextMonthStartDate = 1
+  const nextMonthEndDate = WEEK_DAY_COUNT - firstDayOfNextMonth
+
   const nextMonthDateCells = pipe(
-    range(FIRST_DATE_OF_MONTH, WEEK_DAY_COUNT - getFirstDayOfMonth(year, month)),
+    inclusiveRange(nextMonthStartDate, nextMonthEndDate),
     map((date) => {
       return dateCells.nextMonthDate?.({
         year,
@@ -67,6 +81,7 @@ export const Calendar = ({ year, month, dateCells }: CalendarProps) => {
     }),
     toArray
   )
+
   return (
     <Container direction="column" width="100%" height="fit-content">
       <Flex justify="center" mb="2" align="center" py="2" gap="2">
@@ -101,7 +116,12 @@ export const Calendar = ({ year, month, dateCells }: CalendarProps) => {
     </Container>
   )
 }
-const FIRST_DATE_OF_MONTH = 1
+
+function inclusiveRange(start: number, inclusiveEnd: number) {
+  const RANGE_OFFSET = 1
+  return range(start, inclusiveEnd + RANGE_OFFSET)
+}
+
 const WEEK_DAY_COUNT = 7
 const DAY_TITLES = ['일', '월', '화', '수', '목', '금', '토']
 
