@@ -7,8 +7,9 @@ import { Calendar } from '~/components/calendar'
 
 import { DailyTransactionList } from './components/daily-transaction-list'
 import { MonthlyTransaction } from './components/monthly-transaction'
-import { DateCellDef } from '~/components/calendar/calendar'
 import { DateCell } from '~/components/calendar/date-cell'
+import { ACTION_TYPE } from '~/components/calendar/hooks/use-calendar'
+import { DateCellDef } from '~/components/calendar/calendar-body'
 
 export const TransactionList = () => {
   const {
@@ -31,7 +32,13 @@ export const TransactionList = () => {
       </Flex>
       <Flex justify="between" gap="9" height="calc(100dvh - 50px)">
         <Section width="50%" minWidth="300px">
-          <Calendar year={year} month={month} dateCells={dateCells} />
+          <Calendar year={year} month={month}>
+            <Calendar.Header
+              onPrevMonthClick={() => dispatchCalender({ type: ACTION_TYPE.SET_PREV_MONTH })}
+              onNextMonthClick={() => dispatchCalender({ type: ACTION_TYPE.SET_NEXT_MONTH })}
+            />
+            <Calendar.Body dateCells={dateCells} />
+          </Calendar>
           <MonthlyTransaction monthlyIncome={monthlyIncome} monthlyExpense={monthlyExpense} />
         </Section>
         <Section width="50%" minWidth="300px">
