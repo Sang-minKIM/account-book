@@ -8,7 +8,7 @@ import { Calendar } from '~/components/calendar'
 import { DailyTransactionList } from './components/daily-transaction-list'
 import { MonthlyTransaction } from './components/monthly-transaction'
 import { DateCellDef } from '~/components/calendar/calendar'
-import { Day } from '~/components/calendar/day'
+import { DateCell } from '~/components/calendar/date-cell'
 
 export const TransactionList = () => {
   const {
@@ -44,7 +44,7 @@ export const TransactionList = () => {
 
 const dateCells: DateCellDef = {
   prevMonthDate: ({ date }) => {
-    return <Day date={date} disabled />
+    return <DateCell date={date} disabled />
   },
   currentMonthDate: ({ date, day }) => {
     const color = (() => {
@@ -57,9 +57,9 @@ const dateCells: DateCellDef = {
           return 'gray'
       }
     })()
-    return <Day date={date} color={color} variant="soft" />
+    return <DateCell date={date} color={color} variant="soft" />
   },
   nextMonthDate: ({ date }) => {
-    return <Day date={date} disabled />
+    return <DateCell date={date} disabled />
   },
 }

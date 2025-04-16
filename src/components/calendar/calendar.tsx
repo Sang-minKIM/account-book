@@ -5,7 +5,7 @@ import { Flex, Grid as RGrid, IconButton, Text } from '@radix-ui/themes'
 
 import { getFirstDayOfMonth } from './services/get-first-day-of-month'
 import { getLastDateOfMonth } from './services/get-last-date-of-month'
-import { Day } from './day'
+import { Day } from './date-cell'
 import { getDay } from './services/get-day'
 import { map, pipe, range, toArray } from '@fxts/core'
 

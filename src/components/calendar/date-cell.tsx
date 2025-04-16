@@ -7,16 +7,16 @@ interface DayProps<T extends ReactNode> extends ButtonProps {
   children?: T
 }
 
-export const Day = <T extends ReactNode>({ date, children, ...props }: DayProps<T>) => {
+export const DateCell = <T extends ReactNode>({ date, children, ...props }: DayProps<T>) => {
   return (
-    <DayButton {...props}>
+    <DateCellButton {...props}>
       {date}
       {children}
-    </DayButton>
+    </DateCellButton>
   )
 }
 
-const DayButton = styled(Button)`
+const DateCellButton = styled(Button)`
   width: 100%;
   height: 100%;
   min-height: 60px;
