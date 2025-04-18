@@ -17,7 +17,6 @@ export const Calendar = ({ year, month, children }: PropsWithChildren<CalendarPr
     <CalendarContext.Provider value={{ year, month }}>
       <Container direction="column" width="100%" height="fit-content" gap="2">
         {children}
-        {/* 요일 표시 */}
       </Container>
     </CalendarContext.Provider>
   )
