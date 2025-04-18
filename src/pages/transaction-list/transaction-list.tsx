@@ -1,4 +1,4 @@
-import { Container, Flex, Section } from '@radix-ui/themes'
+import { Container, Flex, Section, Text } from '@radix-ui/themes'
 import { Pencil1Icon } from '@radix-ui/react-icons'
 import { useTransactionListViewModel } from './hooks/use-transaction-list-view-model'
 import { ROUTE } from '~/router'
@@ -10,6 +10,8 @@ import { MonthlyTransaction } from './components/monthly-transaction'
 import { DateCell } from '~/components/calendar/date-cell'
 import { ACTION_TYPE } from '~/components/calendar/hooks/use-calendar'
 import { DateCellDef } from '~/components/calendar/calendar-body'
+import { transactionAmountFormat } from '~/utils/units'
+import { useMemo } from 'react'
 
 export const TransactionList = () => {
   const {
@@ -22,6 +24,46 @@ export const TransactionList = () => {
     day,
     dispatchCalender,
   } = useTransactionListViewModel()
+
+  const dateCells: DateCellDef = useMemo(() => {
+    return {
+      prevMonthDate: ({ date }) => {
+        return <DateCell date={date} disabled />
+      },
+      currentMonthDate: ({ date, day, month, year }) => {
+        const color = (() => {
+          switch (day) {
+            case '일':
+              return 'red'
+            case '토':
+              return 'blue'
+            default:
+              return 'gray'
+          }
+        })()
+        const MONTH_OFFSET = 1
+        const expense = getDailyTransaction({ type: 'expense', year, month: month + MONTH_OFFSET, day: date })
+        const income = getDailyTransaction({ type: 'income', year, month: month + MONTH_OFFSET, day: date })
+        return (
+          <DateCell date={date} color={color} variant="soft">
+            {income > 0 && (
+              <Text size="1" color="blue">
+                {transactionAmountFormat({ amount: income, type: 'income' })}
+              </Text>
+            )}
+            {expense > 0 && (
+              <Text size="1" color="red">
+                {transactionAmountFormat({ amount: expense, type: 'expense' })}
+              </Text>
+            )}
+          </DateCell>
+        )
+      },
+      nextMonthDate: ({ date }) => {
+        return <DateCell date={date} disabled />
+      },
+    }
+  }, [getDailyTransaction, month, year])
 
   return (
     <Container>
@@ -47,26 +89,4 @@ export const TransactionList = () => {
       </Flex>
     </Container>
   )
-}
-
-const dateCells: DateCellDef = {
-  prevMonthDate: ({ date }) => {
-    return <DateCell date={date} disabled />
-  },
-  currentMonthDate: ({ date, day }) => {
-    const color = (() => {
-      switch (day) {
-        case '일':
-          return 'red'
-        case '토':
-          return 'blue'
-        default:
-          return 'gray'
-      }
-    })()
-    return <DateCell date={date} color={color} variant="soft" />
-  },
-  nextMonthDate: ({ date }) => {
-    return <DateCell date={date} disabled />
-  },
 }
