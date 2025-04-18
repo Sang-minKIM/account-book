@@ -3,43 +3,46 @@ import { getLastDateOfMonth } from '../utils/get-last-date-of-month'
 import { getPrevMonthAndYear } from '../utils/get-prev-month-and-year'
 import { getNextMonthAndYear } from '../utils/get-next-month-and-year'
 
+type OneBasedMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+
 export interface DateState {
   year: number
-  month: number
+  oneBasedMonth: OneBasedMonth
   day: number
 }
 
-export const useCalender = (defaultDate = new Date()) => {
+export const useCalendar = (defaultDate = new Date()) => {
+  const MONTH_OFFSET = 1
   const initialDate = {
     year: defaultDate.getFullYear(),
-    month: defaultDate.getMonth(),
+    oneBasedMonth: defaultDate.getMonth() + MONTH_OFFSET,
     day: defaultDate.getDate(),
-  }
-  const [{ year, month, day }, dispatch] = useReducer(dateReducer, initialDate)
+  } as DateState
+  const [{ year, oneBasedMonth, day }, dispatch] = useReducer(dateReducer, initialDate)
 
-  return { year, month, day, dispatch }
+  return { year, oneBasedMonth, day, dispatch }
 }
 
 function dateReducer(state: DateState, action: ActionType): DateState {
   switch (action.type) {
     case ACTION_TYPE.SET_MONTH:
-      return { ...state, month: action.payload, day: 1 }
+      return { ...state, oneBasedMonth: action.payload, day: 1 }
     case ACTION_TYPE.SET_PREV_MONTH: {
-      const [prevYear, prevMonth] = getPrevMonthAndYear(state.year, state.month)
+      const [prevYear, prevMonth] = getPrevMonthAndYear(state.year, state.oneBasedMonth)
       const daysInPrevMonth = getLastDateOfMonth(prevYear, prevMonth)
       return {
         ...state,
         year: prevYear,
-        month: prevMonth,
+        oneBasedMonth: prevMonth,
         day: daysInPrevMonth,
       }
     }
     case ACTION_TYPE.SET_NEXT_MONTH: {
-      const [nextYear, nextMonth] = getNextMonthAndYear(state.year, state.month)
+      const [nextYear, nextMonth] = getNextMonthAndYear(state.year, state.oneBasedMonth)
       return {
         ...state,
         year: nextYear,
-        month: nextMonth,
+        oneBasedMonth: nextMonth,
         day: 1,
       }
     }
@@ -51,7 +54,7 @@ function dateReducer(state: DateState, action: ActionType): DateState {
 }
 
 export type ActionType =
-  | { type: typeof ACTION_TYPE.SET_MONTH; payload: number }
+  | { type: typeof ACTION_TYPE.SET_MONTH; payload: OneBasedMonth }
   | { type: typeof ACTION_TYPE.SET_PREV_MONTH }
   | { type: typeof ACTION_TYPE.SET_NEXT_MONTH }
   | { type: typeof ACTION_TYPE.SET_DAY; payload: number }
