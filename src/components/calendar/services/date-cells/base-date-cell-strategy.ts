@@ -1,8 +1,13 @@
 import { map, pipe, range, toArray } from '@fxts/core'
 
 import { getDay } from '../../utils/get-day'
-import { DateCellRenderer, DateRange } from '../../types'
+import { DateCellRenderer } from '../../types'
 import { DateCell } from '../../date-cell'
+
+export interface DateRange {
+  startDate: number
+  endDate: number
+}
 
 export abstract class BaseDateCellStrategy {
   constructor(protected dateCellRenderer: DateCellRenderer) {}

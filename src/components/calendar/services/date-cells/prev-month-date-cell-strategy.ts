@@ -1,8 +1,6 @@
-import { DateRange } from '../../types'
-
 import { getFirstDayOfMonth } from '../../utils/get-first-day-of-month'
 import { getLastDateOfMonth } from '../../utils/get-last-date-of-month'
-import { BaseDateCellStrategy } from './base-date-cell-strategy'
+import { BaseDateCellStrategy, DateRange } from './base-date-cell-strategy'
 
 export class PrevMonthDateCellStrategy extends BaseDateCellStrategy {
   calculateRange(year: number, month: number): DateRange {

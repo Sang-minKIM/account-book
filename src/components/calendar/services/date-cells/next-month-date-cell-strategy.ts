@@ -1,6 +1,5 @@
-import { DateRange } from '../../types'
 import { getFirstDayOfMonth } from '../../utils/get-first-day-of-month'
-import { BaseDateCellStrategy } from './base-date-cell-strategy'
+import { BaseDateCellStrategy, DateRange } from './base-date-cell-strategy'
 
 export class NextMonthDateCellStrategy extends BaseDateCellStrategy {
   private readonly WEEK_DAY_COUNT = 7
