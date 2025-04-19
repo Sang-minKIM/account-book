@@ -18,7 +18,8 @@ export class PrevMonthDateCellStrategy extends BaseDateCellStrategy {
   protected getTargetMonth(month: OneBasedMonth): OneBasedMonth {
     const DECEMBER = 12
     const JANUARY = 1
-    const PREV_MONTH_OFFSET = 1
-    return (month - PREV_MONTH_OFFSET < JANUARY ? DECEMBER : month - PREV_MONTH_OFFSET) as OneBasedMonth
+    const prevMonth = month - 1
+
+    return (prevMonth < JANUARY ? DECEMBER : prevMonth) as OneBasedMonth
   }
 }
