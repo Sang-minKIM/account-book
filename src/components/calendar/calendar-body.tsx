@@ -3,25 +3,13 @@ import styled from 'styled-components'
 import { Flex, Grid, Text } from '@radix-ui/themes'
 
 import { useCalendarContext } from './context'
-import { DateCell } from './date-cell'
 import {
   PrevMonthDateCellStrategy,
   CurrentMonthDateCellStrategy,
   NextMonthDateCellStrategy,
   DateCellContext,
 } from './services/date-cells'
-interface CalendarDayInfo {
-  date: number
-  year: number
-  month: number
-  day: string
-}
-
-export interface DateCellDef {
-  prevMonthDate?: (info: CalendarDayInfo) => ReturnType<typeof DateCell>
-  currentMonthDate: (info: CalendarDayInfo) => ReturnType<typeof DateCell>
-  nextMonthDate?: (info: CalendarDayInfo) => ReturnType<typeof DateCell>
-}
+import type { DateCellDef } from './types'
 
 export const CalendarBody = ({ dateCells }: { dateCells: DateCellDef }) => {
   const { year, month } = useCalendarContext()

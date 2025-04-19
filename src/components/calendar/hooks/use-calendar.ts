@@ -2,8 +2,7 @@ import { useReducer } from 'react'
 import { getLastDateOfMonth } from '../utils/get-last-date-of-month'
 import { getPrevMonthAndYear } from '../utils/get-prev-month-and-year'
 import { getNextMonthAndYear } from '../utils/get-next-month-and-year'
-
-type OneBasedMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+import type { OneBasedMonth } from '../types'
 
 export interface DateState {
   year: number
@@ -13,11 +12,13 @@ export interface DateState {
 
 export const useCalendar = (defaultDate = new Date()) => {
   const MONTH_OFFSET = 1
+
   const initialDate = {
     year: defaultDate.getFullYear(),
     oneBasedMonth: defaultDate.getMonth() + MONTH_OFFSET,
     day: defaultDate.getDate(),
   } as DateState
+
   const [{ year, oneBasedMonth, day }, dispatch] = useReducer(dateReducer, initialDate)
 
   return { year, oneBasedMonth, day, dispatch }

@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react'
+import type { OneBasedMonth } from '../types'
 
 interface CalendarContextType {
   year: number
-  month: number
+  month: OneBasedMonth
 }
 
 export const CalendarContext = createContext<CalendarContextType | null>(null)

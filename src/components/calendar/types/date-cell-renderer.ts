@@ -1,9 +1,10 @@
 import { DateCell } from '../date-cell'
+import { OneBasedMonth } from './one-based-month'
 
 interface CalendarDayInfo {
   date: number
   year: number
-  month: number
+  month: OneBasedMonth
   day: string
 }
 

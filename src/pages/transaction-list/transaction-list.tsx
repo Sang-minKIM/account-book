@@ -9,7 +9,7 @@ import { DailyTransactionList } from './components/daily-transaction-list'
 import { MonthlyTransaction } from './components/monthly-transaction'
 import { DateCell } from '~/components/calendar/date-cell'
 import { ACTION_TYPE } from '~/components/calendar/hooks/use-calendar'
-import { DateCellDef } from '~/components/calendar/calendar-body'
+import { DateCellDef } from '~/components/calendar/types'
 import { transactionAmountFormat } from '~/utils/units'
 import { useMemo } from 'react'
 
@@ -63,7 +63,7 @@ export const TransactionList = () => {
         return <DateCell date={date} disabled />
       },
     }
-  }, [getDailyTransaction, month, year])
+  }, [getDailyTransaction])
 
   return (
     <Container>

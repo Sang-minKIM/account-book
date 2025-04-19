@@ -6,10 +6,10 @@ import { CalendarContext } from './context'
 import { CalendarHeader } from './calendar-header'
 import { PropsWithChildren } from 'react'
 import { CalendarBody } from './calendar-body'
-
+import type { OneBasedMonth } from './types'
 interface CalendarProps {
   year: number
-  month: number
+  month: OneBasedMonth
 }
 
 export const Calendar = ({ year, month, children }: PropsWithChildren<CalendarProps>) => {
