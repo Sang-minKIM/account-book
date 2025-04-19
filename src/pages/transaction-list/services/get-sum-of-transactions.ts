@@ -1,6 +1,10 @@
-import { Transaction, RequiredInfo } from '~/queries/transactions'
+import { z } from 'zod'
 
-export const getSumOfTransactions = (type: RequiredInfo['type'], transactions: Transaction[]) => {
+import { TransactionSchema } from '~/queries/transactions'
+
+type Transaction = z.infer<typeof TransactionSchema>
+
+export const getSumOfTransactions = (type: Transaction['type'], transactions: Transaction[]) => {
   return transactions.reduce((sum, transaction) => {
     if (transaction.type === type) {
       return sum + transaction.amount

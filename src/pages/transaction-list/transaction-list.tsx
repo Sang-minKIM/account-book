@@ -20,8 +20,7 @@ export const TransactionList = () => {
     monthlyIncome,
     monthlyExpense,
     year,
-    month,
-    day,
+    oneBasedMonth,
     dispatchCalender,
   } = useTransactionListViewModel()
 
@@ -30,22 +29,11 @@ export const TransactionList = () => {
       prevMonthDate: ({ date }) => {
         return <DateCell date={date} disabled />
       },
-      currentMonthDate: ({ date, day, month, year }) => {
-        const color = (() => {
-          switch (day) {
-            case '일':
-              return 'red'
-            case '토':
-              return 'blue'
-            default:
-              return 'gray'
-          }
-        })()
-        const MONTH_OFFSET = 1
-        const expense = getDailyTransaction({ type: 'expense', year, month: month + MONTH_OFFSET, day: date })
-        const income = getDailyTransaction({ type: 'income', year, month: month + MONTH_OFFSET, day: date })
+      currentMonthDate: ({ date, oneBasedMonth, year }) => {
+        const expense = getDailyTransaction({ type: 'expense', year, oneBasedMonth, date })
+        const income = getDailyTransaction({ type: 'income', year, oneBasedMonth, date })
         return (
-          <DateCell date={date} color={color} variant="soft">
+          <DateCell date={date} color="gray" variant="soft">
             {income > 0 && (
               <Text size="1" color="blue">
                 {transactionAmountFormat({ amount: income, type: 'income' })}
@@ -74,7 +62,7 @@ export const TransactionList = () => {
       </Flex>
       <Flex justify="between" gap="9" height="calc(100dvh - 50px)">
         <Section width="50%" minWidth="300px">
-          <Calendar year={year} month={month}>
+          <Calendar year={year} oneBasedMonth={oneBasedMonth}>
             <Calendar.Header
               onPrevMonthClick={() => dispatchCalender({ type: ACTION_TYPE.SET_PREV_MONTH })}
               onNextMonthClick={() => dispatchCalender({ type: ACTION_TYPE.SET_NEXT_MONTH })}

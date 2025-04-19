@@ -12,18 +12,21 @@ import {
 import type { DateCellDef } from './types'
 
 export const CalendarBody = ({ dateCells }: { dateCells: DateCellDef }) => {
-  const { year, month } = useCalendarContext()
+  const { year, oneBasedMonth } = useCalendarContext()
 
   const dateCellsByMonth = {
     prev:
       dateCells.prevMonthDate &&
-      new DateCellContext(new PrevMonthDateCellStrategy(dateCells.prevMonthDate)).createCells(year, month),
+      new DateCellContext(new PrevMonthDateCellStrategy(dateCells.prevMonthDate)).createCells(year, oneBasedMonth),
 
-    current: new DateCellContext(new CurrentMonthDateCellStrategy(dateCells.currentMonthDate)).createCells(year, month),
+    current: new DateCellContext(new CurrentMonthDateCellStrategy(dateCells.currentMonthDate)).createCells(
+      year,
+      oneBasedMonth
+    ),
 
     next:
       dateCells.nextMonthDate &&
-      new DateCellContext(new NextMonthDateCellStrategy(dateCells.nextMonthDate)).createCells(year, month),
+      new DateCellContext(new NextMonthDateCellStrategy(dateCells.nextMonthDate)).createCells(year, oneBasedMonth),
   }
 
   return (

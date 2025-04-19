@@ -9,12 +9,12 @@ import { CalendarBody } from './calendar-body'
 import type { OneBasedMonth } from './types'
 interface CalendarProps {
   year: number
-  month: OneBasedMonth
+  oneBasedMonth: OneBasedMonth
 }
 
-export const Calendar = ({ year, month, children }: PropsWithChildren<CalendarProps>) => {
+export const Calendar = ({ year, oneBasedMonth, children }: PropsWithChildren<CalendarProps>) => {
   return (
-    <CalendarContext.Provider value={{ year, month }}>
+    <CalendarContext.Provider value={{ year, oneBasedMonth }}>
       <Container direction="column" width="100%" height="fit-content" gap="2">
         {children}
       </Container>

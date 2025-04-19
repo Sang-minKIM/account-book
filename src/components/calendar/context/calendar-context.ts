@@ -3,7 +3,7 @@ import type { OneBasedMonth } from '../types'
 
 interface CalendarContextType {
   year: number
-  month: OneBasedMonth
+  oneBasedMonth: OneBasedMonth
 }
 
 export const CalendarContext = createContext<CalendarContextType | null>(null)

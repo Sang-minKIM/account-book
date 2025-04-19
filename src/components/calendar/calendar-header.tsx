@@ -8,8 +8,8 @@ interface HeaderProps {
 }
 
 export const CalendarHeader = ({ onPrevMonthClick, onNextMonthClick }: HeaderProps) => {
-  const { year, month } = useCalendarContext()
-  const MONTH_DISPLAY_OFFSET = 1
+  const { year, oneBasedMonth } = useCalendarContext()
+
   return (
     <Flex justify="center" mb="2" align="center" py="2" gap="2">
       <IconButton size="1" variant="ghost" onClick={onPrevMonthClick} ml="2">
@@ -18,7 +18,7 @@ export const CalendarHeader = ({ onPrevMonthClick, onNextMonthClick }: HeaderPro
       <Flex align="center" gap="2">
         <Flex gap="1">
           <Text>
-            {year}년 {month + MONTH_DISPLAY_OFFSET}월
+            {year}년 {oneBasedMonth}월
           </Text>
         </Flex>
       </Flex>
