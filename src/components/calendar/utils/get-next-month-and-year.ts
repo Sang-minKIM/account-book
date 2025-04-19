@@ -1,7 +1,12 @@
-type OneBasedMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+import { OneBasedMonth } from '../types/one-based-month'
 
 export function getNextMonthAndYear(year: number, oneBasedMonth: OneBasedMonth): [number, OneBasedMonth] {
-  const nextMonth = oneBasedMonth + 1
-  const nextYear = nextMonth > 12 ? year + 1 : year
-  return [nextYear, nextMonth > 12 ? 1 : (nextMonth as OneBasedMonth)]
+  const NEXT_MONTH_OFFSET = 1
+  const JANUARY = 1
+  const DECEMBER = 12
+
+  const nextMonth = oneBasedMonth + NEXT_MONTH_OFFSET
+  const nextYear = nextMonth > DECEMBER ? year + 1 : year
+  const oneBasedNextMonth = nextMonth > DECEMBER ? JANUARY : (nextMonth as OneBasedMonth)
+  return [nextYear, oneBasedNextMonth]
 }

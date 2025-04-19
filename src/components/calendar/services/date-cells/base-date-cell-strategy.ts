@@ -1,8 +1,8 @@
 import { map, pipe, range, toArray } from '@fxts/core'
 
 import { getDay } from '../../utils/get-day'
-import { DateCellRenderer } from '../../types'
 import { DateCell } from '../../date-cell'
+import type { DateCellRenderer, OneBasedMonth } from '../../types'
 
 export interface DateRange {
   startDate: number
@@ -12,9 +12,11 @@ export interface DateRange {
 export abstract class BaseDateCellStrategy {
   constructor(protected dateCellRenderer: DateCellRenderer) {}
 
-  abstract calculateRange(year: number, month: number): DateRange
+  protected abstract calculateRange(year: number, month: OneBasedMonth): DateRange
 
-  createCells(year: number, month: number): ReturnType<typeof DateCell>[] {
+  protected abstract getTargetMonth(month: OneBasedMonth): OneBasedMonth
+
+  createCells(year: number, month: OneBasedMonth): ReturnType<typeof DateCell>[] {
     const range = this.calculateRange(year, month)
     return pipe(
       this.inclusiveRange(range.startDate, range.endDate),
@@ -34,6 +36,4 @@ export abstract class BaseDateCellStrategy {
     const RANGE_OFFSET = 1
     return range(start, inclusiveEnd + RANGE_OFFSET)
   }
-
-  protected abstract getTargetMonth(month: number): number
 }

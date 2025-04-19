@@ -1,7 +1,8 @@
-type OneBasedMonth = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+import { OneBasedMonth } from '../types/one-based-month'
 
 export function getLastDateOfMonth(year: number, oneBasedMonth: OneBasedMonth): number {
   const MONTH_OFFSET = 1
   const zeroBasedMonth = oneBasedMonth - MONTH_OFFSET
-  return new Date(year, zeroBasedMonth, 0).getDate()
+  const LAST_DATE_OF_PREV_MONTH = 0
+  return new Date(year, zeroBasedMonth, LAST_DATE_OF_PREV_MONTH).getDate()
 }
