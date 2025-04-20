@@ -1,13 +1,20 @@
 import { CalendarIcon } from '@radix-ui/react-icons'
 import { Flex, IconButton, Text } from '@radix-ui/themes'
-import { Transaction } from '~/queries/transactions'
+import { TransactionSchema } from '~/queries/transactions'
 import { transactionAmountFormat } from '~/utils/units'
 import { ROUTE } from '~/router'
 import { useNavigate } from 'react-router-dom'
+import { z } from 'zod'
 
-export const DailyTransactionList = ({ dailyTransactionList }: { dailyTransactionList: [string, Transaction[]] }) => {
+type Transaction = z.infer<typeof TransactionSchema>
+
+interface DailyTransactionListProps {
+  dailyTransactionList: [string, Transaction[]][]
+}
+
+export const DailyTransactionList = ({ dailyTransactionList }: DailyTransactionListProps) => {
   return (
-    <Flex direction="column" gap="6">
+    <Flex direction="column" gap="6" overflowY="scroll" height="100%">
       {dailyTransactionList.map(([date, transactions]) => (
         <Flex key={date} direction="column" gap="4" px="6">
           <Text size="1" color="gray">
@@ -24,11 +31,15 @@ export const DailyTransactionList = ({ dailyTransactionList }: { dailyTransactio
   )
 }
 
-const TransactionInfo = ({ transaction }: { transaction: Transaction }) => {
+interface TransactionInfoProps {
+  transaction: Transaction
+}
+
+const TransactionInfo = ({ transaction }: TransactionInfoProps) => {
   const navigate = useNavigate()
 
   const handleClick = () => {
-    navigate(ROUTE.transaction.detail(transaction.id))
+    navigate(ROUTE.calendar.detail(transaction.id))
   }
 
   return (

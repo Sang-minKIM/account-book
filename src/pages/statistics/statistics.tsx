@@ -5,7 +5,7 @@ import { transactionAmountFormat } from '~/utils/units'
 import { TransactionCreateSchema, useTransactionListQuery } from '~/queries/transactions'
 import { SORT_ORDER } from '~/constants/query'
 import { useMemo } from 'react'
-import { DailyTransactionList } from '../transaction-list/components/daily-transaction-list'
+import { DailyTransactionList } from '../transaction-calendar/components/daily-transaction-list'
 import { z } from 'zod'
 
 type Transaction = z.infer<typeof TransactionCreateSchema>
