@@ -14,11 +14,11 @@ export const TransactionDetail = () => {
   return (
     <Flex direction="column" gap="4">
       <Flex justify="between" align="center" height="50px" p="2">
-        <IconLink to={ROUTE.transaction.list}>
+        <IconLink to={ROUTE.calendar.root}>
           <ChevronLeftIcon width="24" height="24" />
         </IconLink>
         <Heading>상세 내역</Heading>
-        <IconLink to={ROUTE.transaction.update(id)}>
+        <IconLink to={ROUTE.calendar.update(id)}>
           <Pencil1Icon width="24" height="24" />
         </IconLink>
       </Flex>
