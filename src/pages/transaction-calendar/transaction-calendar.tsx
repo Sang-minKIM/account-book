@@ -1,6 +1,6 @@
 import { Container, Flex, Section, Text } from '@radix-ui/themes'
 import { Pencil1Icon } from '@radix-ui/react-icons'
-import { useTransactionListViewModel } from './hooks/use-transaction-list-view-model'
+import { useTransactionCalendarViewModel } from './hooks/use-transaction-calendar-view-model'
 import { ROUTE } from '~/router'
 import { IconLink } from '~/components/base'
 import { Calendar } from '~/components/calendar'
@@ -13,7 +13,7 @@ import { DateCellDef } from '~/components/calendar/types'
 import { transactionAmountFormat } from '~/utils/units'
 import { useMemo } from 'react'
 
-export const TransactionList = () => {
+export const TransactionCalendar = () => {
   const {
     dailyTransactionList,
     getDailyTransaction,
@@ -22,7 +22,7 @@ export const TransactionList = () => {
     year,
     oneBasedMonth,
     dispatchCalender,
-  } = useTransactionListViewModel()
+  } = useTransactionCalendarViewModel()
 
   const dateCells: DateCellDef = useMemo(() => {
     return {

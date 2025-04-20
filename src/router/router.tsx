@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom'
 
 import { ROUTE } from './route.model'
 import { MainLayout } from '~/layout'
-import { TransactionList } from '~/pages/transaction-list'
+import { TransactionCalendar } from '~/pages/transaction-calendar'
 import { TransactionCreate } from '~/pages/transaction-create'
 import { TransactionDetail } from '~/pages/transaction-detail'
 import { TransactionUpdate } from '~/pages/transaction-update'
@@ -19,10 +19,9 @@ export const router = createBrowserRouter([
         path: ROUTE.transactions.root,
         element: <Transactions />,
       },
-      // FIXME: 캘린더 페이지로 이름 변경 예정
       {
         path: ROUTE.calendar.root,
-        element: <TransactionList />,
+        element: <TransactionCalendar />,
       },
       {
         path: ROUTE.calendar.create,

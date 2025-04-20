@@ -11,7 +11,7 @@ import { getNextMonthAndYear } from '~/components/calendar/utils/get-next-month-
 
 type Transaction = z.infer<typeof TransactionSchema>
 
-export const useTransactionListViewModel = () => {
+export const useTransactionCalendarViewModel = () => {
   const { year, oneBasedMonth, dispatch: dispatchCalender } = useCalendar()
   const [yearOfNextMonth, nextMonth] = getNextMonthAndYear(year, oneBasedMonth)
   const { data } = useTransactionListQuery({

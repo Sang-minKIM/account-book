@@ -14,7 +14,7 @@ interface DailyTransactionListProps {
 
 export const DailyTransactionList = ({ dailyTransactionList }: DailyTransactionListProps) => {
   return (
-    <Flex direction="column" gap="6">
+    <Flex direction="column" gap="6" overflowY="scroll" height="100%">
       {dailyTransactionList.map(([date, transactions]) => (
         <Flex key={date} direction="column" gap="4" px="6">
           <Text size="1" color="gray">
